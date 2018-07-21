@@ -12,9 +12,9 @@
 
 NAME = RTv1
 
-HEADER = fractol.h
+HEADER = rtv1.h
 
-SRC = 
+SRC = main.c
 
 SRCDIR = src
 
