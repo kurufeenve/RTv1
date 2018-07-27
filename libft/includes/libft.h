@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include <math.h>
 # include "get_next_line.h"
 
 typedef struct		s_list
@@ -25,6 +26,18 @@ typedef struct		s_list
 	struct s_list	*next;
 
 }					t_list;
+
+typedef struct		s_vector
+{
+	int				bx;
+	int				by;
+	int				bz;
+	int				ex;
+	int				ey;
+	int				ez;
+	double			length;
+
+}					t_vector;
 
 char				*ft_itoa(int n);
 void				*ft_memalloc(size_t size);
@@ -96,5 +109,7 @@ void				ft_lstaddend(t_list **alst, t_list *new);
 int					ft_isnumber(char *str);
 int					ft_chararrdel(char **arr, char ***adr);
 char				*ft_itoa_base(int n, int base);
+long long			ft_qpow(int n, int p);
+void				ft_vector_length(t_vector *v);
 
 #endif

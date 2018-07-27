@@ -1,19 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vector_length.c                                 :+:      :+:    :+:   */
+/*   ft_qpow.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vordynsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/27 13:21:59 by vordynsk          #+#    #+#             */
-/*   Updated: 2018/07/27 13:22:01 by vordynsk         ###   ########.fr       */
+/*   Created: 2018/07/27 16:12:06 by vordynsk          #+#    #+#             */
+/*   Updated: 2018/07/27 16:12:09 by vordynsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
-
-void	ft_vector_length(t_vector *v)
+long long		ft_qpow(int n, int p)
 {
-	v->length = sqrt((v->ex - v->bx) * (v->ex - v->bx) + (v->ey - v->by)\
-	* (v->ey - v->by) + (v->ez - v->bz) * (v->ez - v->bz));
+	int		res;
+
+	res = 1;
+	while (p)
+	{
+		if (p & 1)
+		{
+			res *= n;
+			p--;
+		}
+		else
+		{
+			n *= n;
+			p >>= 1;
+		}
+	}
+	return (res);
 }
