@@ -14,6 +14,5 @@
 
 void	ft_vector_length(t_vector *v)
 {
-	v->length = sqrt((v->ex - v->bx) * (v->ex - v->bx) + (v->ey - v->by)\
-	* (v->ey - v->by) + (v->ez - v->bz) * (v->ez - v->bz));
+	v->length = sqrt(ft_qpow(v->x, 2) + ft_qpow(v->y, 2) + ft_qpow(v->z, 2));
 }

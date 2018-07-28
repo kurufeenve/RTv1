@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vec_add.c                                       :+:      :+:    :+:   */
+/*   ft_vec_scal_mult.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vordynsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/27 20:26:02 by vordynsk          #+#    #+#             */
-/*   Updated: 2018/07/27 20:26:05 by vordynsk         ###   ########.fr       */
+/*   Created: 2018/07/28 15:43:16 by vordynsk          #+#    #+#             */
+/*   Updated: 2018/07/28 15:43:17 by vordynsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/libft.h"
 
-int		ft_vec_add(t_vector v1, t_vector v2, t_vector *res)
+void    ft_vec_scal_mult(t_vector *v, float m)
 {
-	res->x = v1.x + v2.x;
-	res->y = v1.y + v2.y;
-	res->z = v1.z + v2.z;
-	res->length = 0;
+    v->x = v->x * m;
+    v->y = v->y * m;
+    v->z = v->z * m;
 }

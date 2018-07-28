@@ -29,13 +29,10 @@ typedef struct		s_list
 
 typedef struct		s_vector
 {
-	int				bx;
-	int				by;
-	int				bz;
-	int				ex;
-	int				ey;
-	int				ez;
-	double			length;
+	float			x;
+	float			y;
+	float			z;
+	float			length;
 
 }					t_vector;
 
