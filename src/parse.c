@@ -23,7 +23,7 @@ void	read_scene(t_scene *sc)
 	int		t;
 	char	*buff;
 
-	buff = ft_strchr(sc.filename, 46);
+	buff = ft_strchr(sc->filename, 46);
 	if (ft_strcmp(buff, ".sc") != 0)
 	{
 		printf("wrong file extension\n");
@@ -48,18 +48,18 @@ void	fig_count(t_scene *sc)
 	int		i;
 
 	i = 0;
-	ob = 0;
-	cb = 0;
+	sc->ob = 0;
+	sc->cb = 0;
 	while (sc->str[i] != '\0')
 	{
 		if (sc->str[i] == '{')
-			ob++;
+			sc->ob++;
 		if (sc->str[i] == '}')
-			cb++;
+			sc->cb++;
 		i++;
 	}
-	printf("ob = %d, cb = %d\n", ob, cb);
-	if (ob != cb)
+	printf("ob = %d, cb = %d\n", sc->ob, sc->cb);
+	if (sc->ob != sc->cb)
 	{
 		printf("syntax error\n");
 		exit (0);
