@@ -66,5 +66,6 @@ typedef struct		s_scene
 void				ft_parse(t_scene *sc);
 void				read_scene(t_scene *sc);
 void				struct_init(t_scene *sc);
+void				fig_count(t_scene *sc);
 
 #endif

@@ -15,7 +15,7 @@
 void	ft_parse(t_scene *sc)
 {
 	read_scene(sc);
-
+	fig_count(sc);
 }
 
 void	read_scene(t_scene *sc)
@@ -41,6 +41,7 @@ void	read_scene(t_scene *sc)
 		}
 		sc->str = ft_strjoin2(sc->str, sc->line);
 	}
+	ft_delwhitesp(&sc->str);
 }
 
 void	fig_count(t_scene *sc)
@@ -56,12 +57,19 @@ void	fig_count(t_scene *sc)
 			sc->ob++;
 		if (sc->str[i] == '}')
 			sc->cb++;
+		if (sc->str[i] != '[' && sc->str[i] != ']' && sc->str[i] != '{' &&
+		sc->str[i] != '}' && sc->str[i] != ';' && ft_isalnum(sc->str[i]) != 1)
+		{
+			printf("Unexpected symbol '%c' found\nEXIT\n", sc->str[i]);
+			exit (0);
+		}
 		i++;
 	}
-	printf("ob = %d, cb = %d\n", sc->ob, sc->cb);
 	if (sc->ob != sc->cb)
 	{
 		printf("syntax error\n");
 		exit (0);
 	}
+	printf("%d figures available\n", sc->ob);
+	sc->figure = (t_figure *)malloc(sizeof(t_figure) * sc->ob);
 }
