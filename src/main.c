@@ -22,6 +22,7 @@ int		main(int argc, char **argv)
 		printf("wrong number of arguments.\n");
 		exit(0);
 	}
+	struct_init(&sc);
 	sc.filename = argv[1];
 	ft_parse(&sc);
 	s.quit = 0;
@@ -62,6 +63,6 @@ int		main(int argc, char **argv)
 	// 			}
 	// 	}
 	// }
-	//system("leaks rtv1");
+	system("leaks rtv1");
 	return (0);
 }

@@ -14,9 +14,9 @@
 		x 10;
 		y 10;
 		z 10;
-		tiltx 45;
-		tilty 45;
-		tiltz 45;
+		rox 45;
+		roy 45;
+		roz 45;
 		color 0xff00ff;
 	}
 	{
@@ -26,9 +26,9 @@
 		x 50;
 		y 50;
 		z 50;
-		tiltx 0;
-		tilty 0;
-		tiltz 0;
+		rox 0;
+		roy 0;
+		roz 0;
 		color 0x00ffff
 	}
 	{
@@ -38,9 +38,9 @@
 		x 300;
 		y 300;
 		z 300;
-		tiltx 0;
-		tilty 90;
-		tiltz 0;
+		rox 0;
+		roy 90;
+		roz 0;
 		color 0xffff00;
 	}
 ]

@@ -45,9 +45,9 @@ typedef struct		s_figure
 	int				x;
 	int				y;
 	int				z;
-	int				tilt_x;
-	int				tilt_y;
-	int				tilt_z;
+	int				ro_x;
+	int				ro_y;
+	int				ro_z;
 	t_color			color;
 }					t_figure;
 
@@ -56,9 +56,15 @@ typedef struct		s_scene
 	char			*filename;
 	int				fd;
 	t_figure		*figure;
+	char			*line;
+	char			*str;
+	char			*buff;
+	int				ob;
+	int				cb;
 }					t_scene;
 
 void				ft_parse(t_scene *sc);
-void				check_filename(t_scene sc);
+void				read_scene(t_scene *sc);
+void				struct_init(t_scene *sc);
 
 #endif

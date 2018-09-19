@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vordynsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/13 12:49:28 by vordynsk          #+#    #+#             */
-/*   Updated: 2017/11/13 12:49:32 by vordynsk         ###   ########.fr       */
+/*   Created: 2018/09/17 16:41:06 by vordynsk          #+#    #+#             */
+/*   Updated: 2018/09/17 16:41:08 by vordynsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../includes/rtv1.h"
 
-void	ft_lstdelone(t_list **alst, void (*del)(void *, size_t))
+void	struct_init(t_scene *sc)
 {
-	t_list	*ptr;
-
-	if (del == NULL || alst == NULL || *alst == NULL)
-		return ;
-	ptr = *alst;
-	del(ptr->content, ptr->content_size);
-	free(*alst);
-	*alst = NULL;
+	sc->str = NULL;
 }

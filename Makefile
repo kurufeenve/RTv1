@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRC = main.c parse.c
+SRC = main.c parse.c init.c
 SRC_DIR = ./src/
 OBJ_DIR = ./obj/
 OBJ = $(addprefix $(OBJ_DIR),$(SRC:.c=.o))

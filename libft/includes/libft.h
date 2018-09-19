@@ -113,5 +113,7 @@ void				ft_vec_sub(t_vector v1, t_vector v2, t_vector *res);
 void				ft_int_arr(int ***arr, int x, int y);
 size_t				**ft_size_t_arr(int x, int y);
 char				*ft_strrev(char *str);
+char				*ft_strjoin2(char *s1, char *s2);
+void				ft_delwhitesp(char **str);
 
 #endif
