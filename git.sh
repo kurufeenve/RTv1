@@ -10,5 +10,5 @@ then
 	git commit -m "$comment"
 	git push
 else
-	echo Cancelling . . .
+	echo Canceled
 fi
