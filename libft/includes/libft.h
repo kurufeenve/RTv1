@@ -115,5 +115,7 @@ size_t				**ft_size_t_arr(int x, int y);
 char				*ft_strrev(char *str);
 char				*ft_strjoin2(char *s1, char *s2);
 void				ft_delwhitesp(char **str);
+int					ft_strfind(char *haystack, char needle);
+int					ft_strnfind(char *haystack, char needle, size_t n);
 
 #endif

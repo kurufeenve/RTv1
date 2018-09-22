@@ -10,12 +10,12 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRC = main.c parse.c init.c
+SRC = main.c init.c render.c
 SRC_DIR = ./src/
 OBJ_DIR = ./obj/
 OBJ = $(addprefix $(OBJ_DIR),$(SRC:.c=.o))
 INC = ./includes/rtv1.h
-NAME = rtv1
+NAME = RTv1
 CFLAG = -Werror -Wextra -Wall -O2
 FRAMEWORK =  -framework SDL2
 FRAMEWORK_PATH = -F /Library/Frameworks

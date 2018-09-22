@@ -24,9 +24,12 @@
 
 typedef struct		s_sdl
 {
-	SDL_Window	*win;
-	SDL_Event	event;
-	int			quit;
+	SDL_Window		*win;
+	SDL_Event		event;
+	SDL_Surface		*surface;
+	int				bpp;
+	uint32_t			*p;
+	int				quit;
 }					t_sdl;
 
 typedef	union		u_color
@@ -42,30 +45,41 @@ typedef struct		s_figure
 	int				length;
 	int				width;
 	int				height;
-	int				x;
-	int				y;
-	int				z;
-	int				ro_x;
-	int				ro_y;
-	int				ro_z;
+	float			x;
+	float			y;
+	float			z;
+	float			ro_x;
+	float			ro_y;
+	float			ro_z;
 	t_color			color;
 }					t_figure;
 
+typedef struct		s_camera
+{
+	float			x;
+	float			y;
+	float			z;
+	
+}					t_camera;
+
 typedef struct		s_scene
 {
-	char			*filename;
-	int				fd;
 	t_figure		*figure;
-	char			*line;
-	char			*str;
-	char			*buff;
-	int				ob;
-	int				cb;
+	int				i;
+	int				j;
+	t_camera		cam;
+	int				Cw;
+	int				Ch;
+	int				Vw;
+	int				Vh;
 }					t_scene;
 
-void				ft_parse(t_scene *sc);
-void				read_scene(t_scene *sc);
 void				struct_init(t_scene *sc);
-void				fig_count(t_scene *sc);
+void				sphere(t_figure *f);
+void				cylinder(t_figure *f);
+void				cone(t_figure *f);
+void				plane(t_figure *f);
+void				render(t_scene *sc);
+void				putpixel(t_sdl *s, int x, int y, uint32_t pixel);
 
 #endif

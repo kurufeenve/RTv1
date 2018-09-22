@@ -16,6 +16,7 @@ void	ft_parse(t_scene *sc)
 {
 	read_scene(sc);
 	fig_count(sc);
+	read_figures(sc);
 }
 
 void	read_scene(t_scene *sc)
@@ -26,7 +27,7 @@ void	read_scene(t_scene *sc)
 	buff = ft_strchr(sc->filename, 46);
 	if (ft_strcmp(buff, ".sc") != 0)
 	{
-		printf("wrong file extension\n");
+		ft_putstr("wrong file extension\n");
 		exit(0);
 	}
 	sc->fd = open(sc->filename, O_RDONLY);
@@ -36,7 +37,7 @@ void	read_scene(t_scene *sc)
 		t = get_next_line(sc->fd, &sc->line);
 		if (t < 0)
 		{
-			printf("\n===	!!! NOT A FILE !!!	===\n\n");
+			ft_putstr("\n===	!!! NOT A FILE !!!	===\n\n");
 			exit(0);
 		}
 		sc->str = ft_strjoin2(sc->str, sc->line);
@@ -46,30 +47,37 @@ void	read_scene(t_scene *sc)
 
 void	fig_count(t_scene *sc)
 {
-	int		i;
-
-	i = 0;
+	sc->i = 0;
 	sc->ob = 0;
 	sc->cb = 0;
-	while (sc->str[i] != '\0')
+	while (sc->str[sc->i] != '\0')
 	{
-		if (sc->str[i] == '{')
+		if (sc->str[sc->i] == '{')
 			sc->ob++;
-		if (sc->str[i] == '}')
+		if (sc->str[sc->i] == '}')
 			sc->cb++;
-		if (sc->str[i] != '[' && sc->str[i] != ']' && sc->str[i] != '{' &&
-		sc->str[i] != '}' && sc->str[i] != ';' && ft_isalnum(sc->str[i]) != 1)
+		if (sc->str[sc->i] != '[' && sc->str[sc->i] != ']' && sc->str[sc->i] !=
+		'{' && sc->str[sc->i] != '}' && sc->str[sc->i] != ';' &&
+		ft_isalnum(sc->str[sc->i]) != 1 && sc->str[sc->i] != ':')
 		{
-			printf("Unexpected symbol '%c' found\nEXIT\n", sc->str[i]);
-			exit (0);
+			ft_putstr("Unexpected symbol found\nEXIT\n");
+			exit(0);
 		}
-		i++;
+		sc->i++;
 	}
 	if (sc->ob != sc->cb)
 	{
-		printf("syntax error\n");
-		exit (0);
+		ft_putstr("syntax error\n");
+		exit(0);
 	}
-	printf("%d figures available\n", sc->ob);
 	sc->figure = (t_figure *)malloc(sizeof(t_figure) * sc->ob);
+}
+
+void	read_figures(t_scene *sc)
+{
+	sc->i = 0;
+	while (sc->str[i] '\0')
+	{
+		
+	}
 }
