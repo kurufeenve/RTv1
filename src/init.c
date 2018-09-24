@@ -24,6 +24,9 @@ void	struct_init(t_scene *sc)
 	sc->cam.z = 0;
 	sc->Cw = 1000;
 	sc->Ch = 1000;
+	sc->Vw = 1;
+	sc->Vh = 1;
+	sc->d = 1;
 }
 
 void	sphere(t_figure *f)
@@ -31,9 +34,9 @@ void	sphere(t_figure *f)
 	f->name = ft_strnew(6);
 	f->name = ft_strcpy(f->name, "sphere");
 	f->radius = 100;
-	f->x = 250;
-	f->y = 250;
-	f->z = 250;
+	f->o.x = 0;
+	f->o.y = 0;
+	f->o.z = 250;
 	f->color.color = 0xffffff;
 }
 
@@ -43,9 +46,9 @@ void	cylinder(t_figure *f)
 	f->name = ft_strcpy(f->name, "cylinder");
 	f->radius = 50;
 	f->height = 100;
-	f->x = 250;
-	f->y = 250;
-	f->z = 250;
+	f->o.x = 250;
+	f->o.y = 250;
+	f->o.z = 250;
 	f->ro_x = 0;
 	f->ro_y = 90;
 	f->ro_z = 90;
@@ -58,9 +61,9 @@ void	cone(t_figure *f)
 	f->name = ft_strcpy(f->name, "cone");
 	f->radius = 50;
 	f->height = 80;
-	f->x = 250;
-	f->y = 250;
-	f->z = 250;
+	f->o.x = 250;
+	f->o.y = 250;
+	f->o.z = 250;
 	f->ro_x = 90;
 	f->ro_y = 0;
 	f->ro_z = 90;
@@ -73,9 +76,9 @@ void	plane(t_figure *f)
 	f->name = ft_strcpy(f->name, "plane");
 	f->length = 100;
 	f->width = 100;
-	f->x = 250;
-	f->y = 250;
-	f->z = 250;
+	f->o.x = 250;
+	f->o.y = 250;
+	f->o.z = 250;
 	f->ro_x = 0;
 	f->ro_y = 0;
 	f->ro_z = 0;

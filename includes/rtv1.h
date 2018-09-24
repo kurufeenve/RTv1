@@ -28,7 +28,7 @@ typedef struct		s_sdl
 	SDL_Event		event;
 	SDL_Surface		*surface;
 	int				bpp;
-	uint32_t			*p;
+	uint32_t		*p;
 	int				quit;
 }					t_sdl;
 
@@ -45,33 +45,33 @@ typedef struct		s_figure
 	int				length;
 	int				width;
 	int				height;
-	float			x;
-	float			y;
-	float			z;
+	t_vector		o;
 	float			ro_x;
 	float			ro_y;
 	float			ro_z;
 	t_color			color;
 }					t_figure;
 
-typedef struct		s_camera
-{
-	float			x;
-	float			y;
-	float			z;
-	
-}					t_camera;
-
 typedef struct		s_scene
 {
 	t_figure		*figure;
 	int				i;
 	int				j;
-	t_camera		cam;
+	t_vector		cam;
+	t_vector		D;
+	t_vector		ray;
+	t_vector		t_min;
+	t_vector		t_max;
 	int				Cw;
 	int				Ch;
 	int				Vw;
 	int				Vh;
+	int				d;
+	float			k1;
+	float			k2;
+	float			k3;
+	float			dicr;
+	t_vector		oc;
 }					t_scene;
 
 void				struct_init(t_scene *sc);
@@ -79,7 +79,9 @@ void				sphere(t_figure *f);
 void				cylinder(t_figure *f);
 void				cone(t_figure *f);
 void				plane(t_figure *f);
-void				render(t_scene *sc);
+void				render(t_scene *sc, t_sdl *s);
 void				putpixel(t_sdl *s, int x, int y, uint32_t pixel);
+void				canvtoview(t_scene *sc);
+void				intersect(t_scene *sc);
 
 #endif

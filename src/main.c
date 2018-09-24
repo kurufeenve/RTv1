@@ -34,7 +34,8 @@ int		main(void)
 		printf("EVERYTHING was initialised.\n");
 	atexit(SDL_Quit);
 	printf("Initialize the window in a 1000x1000.\n");
-	s.win = SDL_CreateWindow("K U R W A", 100, 100, sc.Cw, sc.Ch, SDL_WINDOW_SHOWN);
+	s.win = SDL_CreateWindow("RTv1",
+       SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, sc.Cw, sc.Ch, 0);
 	if (s.win == NULL)
 	{
 		printf("Couldn't create a fucking window, kurwa!: %s\n", SDL_GetError());
@@ -43,10 +44,10 @@ int		main(void)
 	else
 		printf("Window was created, kurwa!\n");
 	s.surface = SDL_GetWindowSurface(s.win);
-	int	yellow = SDL_MapRGB(s.surface->format, 0xff, 0xff, 0x00);
-	printf("yellow = %x\n", yellow);
-	render(&sc);
-	putpixel(&s, 10, 10, 0xffffff);
+	SDL_memset(s.surface->pixels, 0, s.surface->h * s.surface->pitch);
+	render(&sc, &s);
+	//putpixel(&s, 10, 10, 0xffffff);
+	SDL_UpdateWindowSurface(s.win);
 	while (!s.quit)
 	{
 		while (SDL_PollEvent(&s.event))
@@ -71,7 +72,8 @@ int		main(void)
 void	putpixel(t_sdl *s, int x, int y, uint32_t pixel)
 {
 	s->bpp = s->surface->format->BytesPerPixel;
-	s->p = (uint32_t *)s->surface->pixels + y * s->surface->pitch + x * s->bpp;
+	//printf("s->bpp = %d\n", s->bpp);
+	s->p = s->surface->pixels + y * s->surface->pitch + x * s->bpp;
 	if (s->bpp == 1)
 		*s->p = pixel;
 	else if (s->bpp == 2)
