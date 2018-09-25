@@ -27,6 +27,11 @@ void	struct_init(t_scene *sc)
 	sc->Vw = 1;
 	sc->Vh = 1;
 	sc->d = 1;
+	sc->t1 = 0;
+	sc->t2 = 0;
+	sc->p_l.x = 100;
+	sc->p_l.y = -400;
+	sc->p_l.z = 200;
 }
 
 void	sphere(t_figure *f)

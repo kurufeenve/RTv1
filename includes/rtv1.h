@@ -60,8 +60,8 @@ typedef struct		s_scene
 	t_vector		cam;
 	t_vector		D;
 	t_vector		ray;
-	t_vector		t_min;
-	t_vector		t_max;
+	float			t1;
+	float			t2;
 	int				Cw;
 	int				Ch;
 	int				Vw;
@@ -70,8 +70,13 @@ typedef struct		s_scene
 	float			k1;
 	float			k2;
 	float			k3;
-	float			dicr;
+	float			discr;
 	t_vector		oc;
+	float			clost;
+	float			closfig;
+	t_color			color;
+	t_vector		p_l;
+	t_vector		L;
 }					t_scene;
 
 void				struct_init(t_scene *sc);
@@ -83,5 +88,6 @@ void				render(t_scene *sc, t_sdl *s);
 void				putpixel(t_sdl *s, int x, int y, uint32_t pixel);
 void				canvtoview(t_scene *sc);
 void				intersect(t_scene *sc);
+void				traceray(t_scene *sc);
 
 #endif

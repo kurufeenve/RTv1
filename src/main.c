@@ -45,6 +45,7 @@ int		main(void)
 		printf("Window was created, kurwa!\n");
 	s.surface = SDL_GetWindowSurface(s.win);
 	SDL_memset(s.surface->pixels, 0, s.surface->h * s.surface->pitch);
+	//printf("%d\n", sс.figure[0].o.y);
 	render(&sc, &s);
 	//putpixel(&s, 10, 10, 0xffffff);
 	SDL_UpdateWindowSurface(s.win);
@@ -55,6 +56,48 @@ int		main(void)
 			if (s.event.key.keysym.scancode == 41)
 			{
 				s.quit = 1;
+				break;
+			}
+			if (s.event.key.keysym.scancode == 45)
+			{
+				sc.cam.y++;
+				render(&sc, &s);
+				SDL_UpdateWindowSurface(s.win);
+				break;
+			}
+			if (s.event.key.keysym.scancode == 46)
+			{
+				sc.cam.y--;
+				render(&sc, &s);
+				SDL_UpdateWindowSurface(s.win);
+				break;
+			}
+			if (s.event.key.keysym.scancode == 82)
+			{
+				sc.cam.z++;
+				render(&sc, &s);
+				SDL_UpdateWindowSurface(s.win);
+				break;
+			}
+			if (s.event.key.keysym.scancode == 81)
+			{
+				sc.cam.z--;
+				render(&sc, &s);
+				SDL_UpdateWindowSurface(s.win);
+				break;
+			}
+			if (s.event.key.keysym.scancode == 80)
+			{
+				sc.cam.x--;
+				render(&sc, &s);
+				SDL_UpdateWindowSurface(s.win);
+				break;
+			}
+			if (s.event.key.keysym.scancode == 79)
+			{
+				sc.cam.x++;
+				render(&sc, &s);
+				SDL_UpdateWindowSurface(s.win);
 				break;
 			}
 			if (s.event.type == SDL_WINDOWEVENT)
