@@ -38,6 +38,12 @@ typedef	union		u_color
 	unsigned char	channel[4];
 }					t_color;
 
+typedef struct		s_light
+{
+	t_vector		o;
+	float			intensity;
+}					t_light;
+
 typedef struct		s_figure
 {
 	char			*name;
@@ -58,14 +64,14 @@ typedef struct		s_scene
 	int				i;
 	int				j;
 	t_vector		cam;
-	t_vector		D;
+	t_vector		dd;
 	t_vector		ray;
 	float			t1;
 	float			t2;
-	int				Cw;
-	int				Ch;
-	int				Vw;
-	int				Vh;
+	int				cw;
+	int				ch;
+	int				vw;
+	int				vh;
 	int				d;
 	float			k1;
 	float			k2;
@@ -75,8 +81,12 @@ typedef struct		s_scene
 	float			clost;
 	float			closfig;
 	t_color			color;
-	t_vector		p_l;
-	t_vector		L;
+	t_light			p_l;
+	t_vector		p;
+	t_vector		n;
+	t_vector		l;
+	float			n_dot_l;
+	float			intensity;
 }					t_scene;
 
 void				struct_init(t_scene *sc);
@@ -87,7 +97,8 @@ void				plane(t_figure *f);
 void				render(t_scene *sc, t_sdl *s);
 void				putpixel(t_sdl *s, int x, int y, uint32_t pixel);
 void				canvtoview(t_scene *sc);
-void				intersect(t_scene *sc);
+void				intersect_sph(t_scene *sc);
 void				traceray(t_scene *sc);
+void				lighting(t_scene *sc);
 
 #endif

@@ -22,16 +22,17 @@ void	struct_init(t_scene *sc)
 	sc->cam.x = 0;
 	sc->cam.y = 0;
 	sc->cam.z = 0;
-	sc->Cw = 1000;
-	sc->Ch = 1000;
-	sc->Vw = 1;
-	sc->Vh = 1;
+	sc->cw = 1000;
+	sc->ch = 1000;
+	sc->vw = 1;
+	sc->vh = 1;
 	sc->d = 1;
 	sc->t1 = 0;
 	sc->t2 = 0;
-	sc->p_l.x = 100;
-	sc->p_l.y = -400;
-	sc->p_l.z = 200;
+	sc->p_l.o.x = 0;
+	sc->p_l.o.y = -400;
+	sc->p_l.o.z = 250;
+	sc->p_l.intensity = 0.6;
 }
 
 void	sphere(t_figure *f)

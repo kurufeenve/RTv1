@@ -28,6 +28,7 @@ int		main(void)
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
 	{
 		printf("Failed to initialise EVERYTHING module.\n%s\n", SDL_GetError());
+		system("leaks RTv1");
 		exit(-1);
 	}
 	else
@@ -35,10 +36,11 @@ int		main(void)
 	atexit(SDL_Quit);
 	printf("Initialize the window in a 1000x1000.\n");
 	s.win = SDL_CreateWindow("RTv1",
-       SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, sc.Cw, sc.Ch, 0);
+       SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, sc.cw, sc.ch, 0);
 	if (s.win == NULL)
 	{
 		printf("Couldn't create a fucking window, kurwa!: %s\n", SDL_GetError());
+		system("leaks RTv1");
 		exit(-1);
 	}
 	else
@@ -63,42 +65,36 @@ int		main(void)
 				sc.cam.y++;
 				render(&sc, &s);
 				SDL_UpdateWindowSurface(s.win);
-				break;
 			}
 			if (s.event.key.keysym.scancode == 46)
 			{
 				sc.cam.y--;
 				render(&sc, &s);
 				SDL_UpdateWindowSurface(s.win);
-				break;
 			}
 			if (s.event.key.keysym.scancode == 82)
 			{
 				sc.cam.z++;
 				render(&sc, &s);
 				SDL_UpdateWindowSurface(s.win);
-				break;
 			}
 			if (s.event.key.keysym.scancode == 81)
 			{
 				sc.cam.z--;
 				render(&sc, &s);
 				SDL_UpdateWindowSurface(s.win);
-				break;
 			}
 			if (s.event.key.keysym.scancode == 80)
 			{
 				sc.cam.x--;
 				render(&sc, &s);
 				SDL_UpdateWindowSurface(s.win);
-				break;
 			}
 			if (s.event.key.keysym.scancode == 79)
 			{
 				sc.cam.x++;
 				render(&sc, &s);
 				SDL_UpdateWindowSurface(s.win);
-				break;
 			}
 			if (s.event.type == SDL_WINDOWEVENT)
 				if (s.event.window.event == SDL_WINDOWEVENT_CLOSE)
