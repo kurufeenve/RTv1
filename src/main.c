@@ -62,37 +62,49 @@ int		main(void)
 			}
 			if (s.event.key.keysym.scancode == 45)
 			{
-				sc.cam.y++;
+				//sc.cam.y++;
+				//sc.figure[0].o.y++;
+				sc.p_l.o.y++;
 				render(&sc, &s);
 				SDL_UpdateWindowSurface(s.win);
 			}
 			if (s.event.key.keysym.scancode == 46)
 			{
-				sc.cam.y--;
+				//sc.cam.y--;
+				//sc.figure[0].o.y--;
+				sc.p_l.o.y--;
 				render(&sc, &s);
 				SDL_UpdateWindowSurface(s.win);
 			}
 			if (s.event.key.keysym.scancode == 82)
 			{
-				sc.cam.z++;
+				// sc.cam.z++;
+				//sc.figure[0].o.z++;
+				sc.p_l.o.z++;
 				render(&sc, &s);
 				SDL_UpdateWindowSurface(s.win);
 			}
 			if (s.event.key.keysym.scancode == 81)
 			{
-				sc.cam.z--;
+				// sc.cam.z--;
+				//sc.figure[0].o.z--;
+				sc.p_l.o.z--;
 				render(&sc, &s);
 				SDL_UpdateWindowSurface(s.win);
 			}
 			if (s.event.key.keysym.scancode == 80)
 			{
-				sc.cam.x--;
+				// sc.cam.x--;
+				//sc.figure[0].o.x--;
+				sc.p_l.o.x--;
 				render(&sc, &s);
 				SDL_UpdateWindowSurface(s.win);
 			}
 			if (s.event.key.keysym.scancode == 79)
 			{
-				sc.cam.x++;
+				// sc.cam.x++;
+				//sc.figure[0].o.x++;
+				sc.p_l.o.x++;
 				render(&sc, &s);
 				SDL_UpdateWindowSurface(s.win);
 			}

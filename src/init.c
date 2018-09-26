@@ -30,7 +30,7 @@ void	struct_init(t_scene *sc)
 	sc->t1 = 0;
 	sc->t2 = 0;
 	sc->p_l.o.x = 0;
-	sc->p_l.o.y = -400;
+	sc->p_l.o.y = -300;
 	sc->p_l.o.z = 250;
 	sc->p_l.intensity = 0.6;
 }

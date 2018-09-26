@@ -21,8 +21,8 @@ void	render(t_scene *sc, t_sdl *s)
 		while (sc->j < sc->ch/2)
 		{
 			canvtoview(sc);
-			if (sc->i == 0 && sc->j == 0)
-				printf("sc->dd.x = %f, sc->dd.y = %f, sc->dd.z = %f\n", sc->dd.x, sc->dd.y, sc->dd.z);
+			// if (sc->i == 0 && sc->j == 0)
+			// 	printf("sc->dd.x = %f, sc->dd.y = %f, sc->dd.z = %f\n", sc->dd.x, sc->dd.y, sc->dd.z);
 			//intersect_sph(sc);
 			traceray(sc);
 			sc->i += sc->cw/2;
@@ -62,8 +62,8 @@ void	intersect_sph(t_scene *sc)
 	}
 	sc->t1 = (-sc->k2 + sqrtf(sc->discr)) / (2 * sc->k1);
 	sc->t2 = (-sc->k2 - sqrtf(sc->discr)) / (2 * sc->k1);
-	if (sc->i == 0 && sc->j == 0)
-		printf("sc->k1 = %f, sc->k2 = %f, sc->k3 = %f, sc->discr = %f, sc->t1 = %f, sc->t2 = %f\n", sc->k1, sc->k2, sc->k3, sc->discr, sc->t1, sc->t2);
+	// if (sc->i == 0 && sc->j == 0)
+	// 	printf("sc->k1 = %f, sc->k2 = %f, sc->k3 = %f, sc->discr = %f, sc->t1 = %f, sc->t2 = %f\n", sc->k1, sc->k2, sc->k3, sc->discr, sc->t1, sc->t2);
 }
 
 void	traceray(t_scene *sc)
@@ -88,9 +88,13 @@ void	traceray(t_scene *sc)
 		sc->color.color = 0x000000;
 		sc->clost = 0;
 	}
-	sc->p.x = sc->figure[0].o.x + sc->clost * sc->dd.x;
-	sc->p.y = sc->figure[0].o.y + sc->clost * sc->dd.y;
-	sc->p.z = sc->figure[0].o.z + sc->clost * sc->dd.z;
+	if (sc->i == 0 && sc->j == 0)
+		//printf("sc->clost = %f\n", sc->clost);
+	sc->p.x = sc->cam.x + sc->clost * sc->dd.x;
+	sc->p.y = sc->cam.y + sc->clost * sc->dd.y;
+	sc->p.z = sc->cam.z + sc->clost * sc->dd.z;
+	if (sc->i == 0 && sc->j == 0)
+		//printf("sc->p.z = %f, sc->cam.z = %f, sc->clost = %f, sc->dd.z = %f\n", sc->p.z, sc->cam.z, sc->clost, sc->dd.z);
 	sc->n.x = sc->p.x - sc->figure[0].o.x;
 	sc->n.y = sc->p.y - sc->figure[0].o.y;
 	sc->n.z = sc->p.z - sc->figure[0].o.z;
@@ -101,15 +105,23 @@ void	traceray(t_scene *sc)
 	sc->n.z = sc->n.z / sc->n.length;
 	if (sc->clost > 1)
 		lighting(sc);
+	sc->color.channel[0] *= sc->intensity;
+	sc->color.channel[1] *= sc->intensity;
+	sc->color.channel[2] *= sc->intensity;
+	if (sc->i == 0 && sc->j == -250)
+		printf("sc->intensity = %f, sc->color.color = %x\n", sc->intensity, sc->color.color);
 }
 
 void	lighting(t_scene *sc)
 {
-	sc->intensity = 0.0;
+	sc->intensity = 0.01;
 	sc->l.x = sc->p_l.o.x - sc->p.x;
 	sc->l.y = sc->p_l.o.y - sc->p.y;
 	sc->l.z = sc->p_l.o.z - sc->p.z;
 	sc->n_dot_l = sc->n.x * sc->l.x + sc->n.y * sc->l.y + sc->n.z * sc->l.z;
-	//if (sc->n_dot_l > 0)
-		//printf("sc->n_dot_l = %f\n", sc->n_dot_l);
+	if (sc->n_dot_l > 0)
+		sc->intensity += sc->p_l.intensity * sc->n_dot_l / (sqrt(sc->n.x * sc->n.x
+		+ sc->n.y * sc->n.y + sc->n.z * sc->n.z) * sqrt(sc->l.x * sc->l.x + sc->l.y
+		* sc->l.y + sc->l.z * sc->l.z));
+	//printf("sc->intensity = %f\n", sc->intensity);
 }
