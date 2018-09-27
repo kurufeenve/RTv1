@@ -14,14 +14,14 @@
 
 void	struct_init(t_scene *sc)
 {
-	sc->figure = (t_figure *)malloc(sizeof(t_figure) * 4);
-	sphere(&sc->figure[0]);
-	cylinder(&sc->figure[1]);
-	cone(&sc->figure[2]);
-	plane(&sc->figure[3]);
-	sc->cam.x = 0;
-	sc->cam.y = 0;
-	sc->cam.z = 0;
+	// sc->figure = (t_figure *)malloc(sizeof(t_figure) * 1);
+	// sphere(&sc->figure[0]);
+	sc->cam.o.x = 0;
+	sc->cam.o.y = 0;
+	sc->cam.o.z = 0;
+	sc->cam.ro.x = 0;
+	sc->cam.ro.y = 0;
+	sc->cam.ro.z = 0;
 	sc->cw = 1000;
 	sc->ch = 1000;
 	sc->vw = 1;
@@ -29,64 +29,18 @@ void	struct_init(t_scene *sc)
 	sc->d = 1;
 	sc->t1 = 0;
 	sc->t2 = 0;
-	sc->p_l.o.x = 0;
-	sc->p_l.o.y = -300;
-	sc->p_l.o.z = 250;
-	sc->p_l.intensity = 0.6;
+	sc->p_l.o.x = 100;
+	sc->p_l.o.y = 0;
+	sc->p_l.o.z = 150;
+	sc->p_l.intensity = 0.95;
 }
 
 void	sphere(t_figure *f)
 {
-	f->name = ft_strnew(6);
-	f->name = ft_strcpy(f->name, "sphere");
+	f->type = 0;
 	f->radius = 100;
 	f->o.x = 0;
 	f->o.y = 0;
 	f->o.z = 250;
-	f->color.color = 0xffffff;
-}
-
-void	cylinder(t_figure *f)
-{
-	f->name = ft_strnew(8);
-	f->name = ft_strcpy(f->name, "cylinder");
-	f->radius = 50;
-	f->height = 100;
-	f->o.x = 250;
-	f->o.y = 250;
-	f->o.z = 250;
-	f->ro_x = 0;
-	f->ro_y = 90;
-	f->ro_z = 90;
-	f->color.color = 0xffffff;
-}
-
-void	cone(t_figure *f)
-{
-	f->name = ft_strnew(4);
-	f->name = ft_strcpy(f->name, "cone");
-	f->radius = 50;
-	f->height = 80;
-	f->o.x = 250;
-	f->o.y = 250;
-	f->o.z = 250;
-	f->ro_x = 90;
-	f->ro_y = 0;
-	f->ro_z = 90;
-	f->color.color = 0xffffff;
-}
-
-void	plane(t_figure *f)
-{
-	f->name = ft_strnew(5);
-	f->name = ft_strcpy(f->name, "plane");
-	f->length = 100;
-	f->width = 100;
-	f->o.x = 250;
-	f->o.y = 250;
-	f->o.z = 250;
-	f->ro_x = 0;
-	f->ro_y = 0;
-	f->ro_z = 0;
 	f->color.color = 0xffffff;
 }

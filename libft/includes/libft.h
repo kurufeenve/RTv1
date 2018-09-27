@@ -32,7 +32,7 @@ typedef struct		s_vector
 	float			x;
 	float			y;
 	float			z;
-	float			length;
+	double			length;
 
 }					t_vector;
 

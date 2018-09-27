@@ -12,110 +12,26 @@
 
 #include "../includes/rtv1.h"
 
-int		main(void)
+int		main(int argc, char **argv)
 {
-	t_sdl	s;
+	//t_sdl	s;
 	t_scene	sc;
 
-	// if (argc != 2)
-	// {
-	// 	printf("wrong number of arguments.\n");
-	// 	exit(0);
-	// }
+	if (argc != 2)
+	{
+		printf("wrong number of arguments.\n");
+		exit(0);
+	}
 	struct_init(&sc);
-	//sc.filename = argv[1];	
-	s.quit = 0;
-	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
-	{
-		printf("Failed to initialise EVERYTHING module.\n%s\n", SDL_GetError());
-		system("leaks RTv1");
-		exit(-1);
-	}
-	else
-		printf("EVERYTHING was initialised.\n");
-	atexit(SDL_Quit);
-	printf("Initialize the window in a 1000x1000.\n");
-	s.win = SDL_CreateWindow("RTv1",
-       SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, sc.cw, sc.ch, 0);
-	if (s.win == NULL)
-	{
-		printf("Couldn't create a fucking window, kurwa!: %s\n", SDL_GetError());
-		system("leaks RTv1");
-		exit(-1);
-	}
-	else
-		printf("Window was created, kurwa!\n");
-	s.surface = SDL_GetWindowSurface(s.win);
-	SDL_memset(s.surface->pixels, 0, s.surface->h * s.surface->pitch);
-	//printf("%d\n", sс.figure[0].o.y);
-	render(&sc, &s);
-	//putpixel(&s, 10, 10, 0xffffff);
-	SDL_UpdateWindowSurface(s.win);
-	while (!s.quit)
-	{
-		while (SDL_PollEvent(&s.event))
-		{
-			if (s.event.key.keysym.scancode == 41)
-			{
-				s.quit = 1;
-				break;
-			}
-			if (s.event.key.keysym.scancode == 45)
-			{
-				//sc.cam.y++;
-				//sc.figure[0].o.y++;
-				sc.p_l.o.y++;
-				render(&sc, &s);
-				SDL_UpdateWindowSurface(s.win);
-			}
-			if (s.event.key.keysym.scancode == 46)
-			{
-				//sc.cam.y--;
-				//sc.figure[0].o.y--;
-				sc.p_l.o.y--;
-				render(&sc, &s);
-				SDL_UpdateWindowSurface(s.win);
-			}
-			if (s.event.key.keysym.scancode == 82)
-			{
-				// sc.cam.z++;
-				//sc.figure[0].o.z++;
-				sc.p_l.o.z++;
-				render(&sc, &s);
-				SDL_UpdateWindowSurface(s.win);
-			}
-			if (s.event.key.keysym.scancode == 81)
-			{
-				// sc.cam.z--;
-				//sc.figure[0].o.z--;
-				sc.p_l.o.z--;
-				render(&sc, &s);
-				SDL_UpdateWindowSurface(s.win);
-			}
-			if (s.event.key.keysym.scancode == 80)
-			{
-				// sc.cam.x--;
-				//sc.figure[0].o.x--;
-				sc.p_l.o.x--;
-				render(&sc, &s);
-				SDL_UpdateWindowSurface(s.win);
-			}
-			if (s.event.key.keysym.scancode == 79)
-			{
-				// sc.cam.x++;
-				//sc.figure[0].o.x++;
-				sc.p_l.o.x++;
-				render(&sc, &s);
-				SDL_UpdateWindowSurface(s.win);
-			}
-			if (s.event.type == SDL_WINDOWEVENT)
-				if (s.event.window.event == SDL_WINDOWEVENT_CLOSE)
-				{
-					s.quit = 1;
-					break;
-				}
-		}
-	}
+	sc.filename = argv[1];
+	ft_parse(&sc);
+	// ft_sdl_init(&s, &sc);
+	// render(&sc, &s);
+	// SDL_UpdateWindowSurface(s.win);
+	// while (!s.quit)
+	// {
+	// 	key_hook(&s, &sc);
+	// }
 	system("leaks RTv1");
 	return (0);
 }
@@ -123,7 +39,6 @@ int		main(void)
 void	putpixel(t_sdl *s, int x, int y, uint32_t pixel)
 {
 	s->bpp = s->surface->format->BytesPerPixel;
-	//printf("s->bpp = %d\n", s->bpp);
 	s->p = s->surface->pixels + y * s->surface->pitch + x * s->bpp;
 	if (s->bpp == 1)
 		*s->p = pixel;
@@ -147,3 +62,55 @@ void	putpixel(t_sdl *s, int x, int y, uint32_t pixel)
 	else if (s->bpp == 4)
 		*s->p = pixel;
 }
+
+// void	key_hook(t_sdl *s, t_scene *sc)
+// {
+// 	while (SDL_PollEvent(&s->event))
+// 	{
+// 		if (s->event.key.keysym.scancode == 41)
+// 		{
+// 			s->quit = 1;
+// 			break ;
+// 		}
+// 		camera_move_y(s, sc);
+// 		camera_move_z(s, sc);
+// 		camera_move_x(s, sc);
+// 		camera_rotate(s, sc);
+// 		// if (s.event.type == SDL_KEYUP)
+// 		// 	break ;
+// 		if (s->event.type == SDL_WINDOWEVENT)
+// 			if (s->event.window.event == SDL_WINDOWEVENT_CLOSE)
+// 			{
+// 				s->quit = 1;
+// 				break ;
+// 			}
+// 	}
+// }
+
+// void	ft_sdl_init(t_sdl *s, t_scene *sc)
+// {
+// 	s->error = NULL;
+// 	s->quit = 0;
+// 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+// 	{
+// 		ft_putstr("Failed to initialise EVERYTHING module.\n");
+// 		if ((s->error = (char *)SDL_GetError()))
+// 			ft_putstr(s->error);
+// 		system("leaks RTv1");
+// 		exit(-1);
+// 	}
+// 	else
+// 		ft_putstr("EVERYTHING was initialised.\n");
+// 	atexit(SDL_Quit);
+// 	s->win = SDL_CreateWindow("RTv1",
+// 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, sc->cw, sc->ch, 0);
+// 	if (s->win == NULL)
+// 	{
+// 		if ((s->error = (char *)SDL_GetError()))
+// 			ft_putstr(s->error);
+// 		system("leaks RTv1");
+// 		exit(-1);
+// 	}
+// 	s->surface = SDL_GetWindowSurface(s->win);
+// 	SDL_memset(s->surface->pixels, 0, s->surface->h * s->surface->pitch);
+// }

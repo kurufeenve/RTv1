@@ -15,8 +15,8 @@
 void	ft_parse(t_scene *sc)
 {
 	read_scene(sc);
-	fig_count(sc);
-	read_figures(sc);
+	validation(sc);
+	parse_fig(sc);
 }
 
 void	read_scene(t_scene *sc)
@@ -43,41 +43,35 @@ void	read_scene(t_scene *sc)
 		sc->str = ft_strjoin2(sc->str, sc->line);
 	}
 	ft_delwhitesp(&sc->str);
+	printf("sc->str = %s\n", sc->str);
 }
 
-void	fig_count(t_scene *sc)
+void	validation(t_scene *sc)
 {
 	sc->i = 0;
-	sc->ob = 0;
-	sc->cb = 0;
 	while (sc->str[sc->i] != '\0')
 	{
-		if (sc->str[sc->i] == '{')
-			sc->ob++;
-		if (sc->str[sc->i] == '}')
-			sc->cb++;
-		if (sc->str[sc->i] != '[' && sc->str[sc->i] != ']' && sc->str[sc->i] !=
-		'{' && sc->str[sc->i] != '}' && sc->str[sc->i] != ';' &&
-		ft_isalnum(sc->str[sc->i]) != 1 && sc->str[sc->i] != ':')
+		if (ft_isalnum(sc->str[sc->i]) != 1 && sc->str[sc->i] != ':' &&
+		sc->str[sc->i] != ';' && sc->str[sc->i] != '.')
 		{
-			ft_putstr("Unexpected symbol found\nEXIT\n");
+			ft_putstr("syntax error\n");
+			system("leaks RTv1");
 			exit(0);
 		}
 		sc->i++;
 	}
-	if (sc->ob != sc->cb)
-	{
-		ft_putstr("syntax error\n");
-		exit(0);
-	}
-	sc->figure = (t_figure *)malloc(sizeof(t_figure) * sc->ob);
+	sc->i = 0;
 }
 
-void	read_figures(t_scene *sc)
+void	parse_fig(t_scene *sc)
 {
-	sc->i = 0;
-	while (sc->str[i] '\0')
-	{
+	sc->buf1 = 0;
+	if ((sc->buf1 = ft_strnfind(sc->str, '.') != -1)
+		while (sc->buf1 != -1)
+		{
+			
+			sc->buff1 = ;
+		}
+	else
 		
-	}
 }
