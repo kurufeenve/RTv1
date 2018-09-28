@@ -57,23 +57,18 @@ typedef struct		s_figure
 	int				radius;
 	int				height;
 	t_vector		o;
-	float			nx;
-	float			ny;
-	float			nz;
+	t_vector		n;
 	t_color			color;
 }					t_figure;
 
 typedef struct		s_scene
 {
-	int				fd;
-	char			*filename;
-	char			*str;
+	int				nof;
 	char			*line;
-	char			*buff1;
-	int				buf1;
-	t_list			*figure;
+	t_figure		*figure;
 	int				i;
 	int				j;
+	int				m;
 	t_camera		cam;
 	t_vector		dd;
 	t_vector		ray;
@@ -90,7 +85,8 @@ typedef struct		s_scene
 	float			discr;
 	t_vector		oc;
 	float			clost;
-	float			closfig;
+	float			eov;
+	int				closfig;
 	t_color			color;
 	t_light			p_l;
 	t_vector		p;
@@ -105,7 +101,6 @@ void				read_scene(t_scene *sc);
 void				validation(t_scene *sc);
 void				parse_fig(t_scene *sc);
 void				struct_init(t_scene *sc);
-void				sphere(t_figure *f);
 void				render(t_scene *sc, t_sdl *s);
 void				putpixel(t_sdl *s, int x, int y, uint32_t pixel);
 void				canvtoview(t_scene *sc);
@@ -117,7 +112,16 @@ void				camera_move_x(t_sdl *s, t_scene *sc);
 void				camera_move_y(t_sdl *s, t_scene *sc);
 void				camera_move_z(t_sdl *s, t_scene *sc);
 void				camera_rotate(t_sdl *s, t_scene *sc);
+void				camera_rotate_z(t_sdl *s, t_scene *sc);
 void				key_hook(t_sdl *s, t_scene *sc);
 void				ft_sdl_init(t_sdl *s, t_scene *sc);
+void				default_sc(t_scene *sc);
+void				sphere(t_scene *sc);
+void				param(t_scene *sc);
+void				which_one(t_scene *sc, int	n);
+void				figures_and_light(t_scene *sc);
+void				light(t_scene *sc);
+void				plane(t_scene *sc);
+void				plane_n(t_scene *sc);
 
 #endif

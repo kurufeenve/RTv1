@@ -14,8 +14,6 @@
 
 void	struct_init(t_scene *sc)
 {
-	// sc->figure = (t_figure *)malloc(sizeof(t_figure) * 1);
-	// sphere(&sc->figure[0]);
 	sc->cam.o.x = 0;
 	sc->cam.o.y = 0;
 	sc->cam.o.z = 0;
@@ -29,18 +27,56 @@ void	struct_init(t_scene *sc)
 	sc->d = 1;
 	sc->t1 = 0;
 	sc->t2 = 0;
-	sc->p_l.o.x = 100;
-	sc->p_l.o.y = 0;
-	sc->p_l.o.z = 150;
-	sc->p_l.intensity = 0.95;
+	sc->eov = 1000.0;
+	sc->clost = sc->eov;
 }
 
-void	sphere(t_figure *f)
+void	default_sc(t_scene *sc)
 {
-	f->type = 0;
-	f->radius = 100;
-	f->o.x = 0;
-	f->o.y = 0;
-	f->o.z = 250;
-	f->color.color = 0xffffff;
+	// sc->nof = 3; // change after tests
+	// sc->figure = (t_figure *)malloc(sizeof(t_figure) * 3);
+	// sc->figure[0].type = 0;
+	// sc->figure[0].radius = 50;
+	// sc->figure[0].o.x = -40;
+	// sc->figure[0].o.y = 0;
+	// sc->figure[0].o.z = 250;
+	// sc->figure[0].color.color = 0xffffff;
+	// sc->figure[1].type = 0;
+	// sc->figure[1].radius = 50;
+	// sc->figure[1].o.x = 40;
+	// sc->figure[1].o.y = 0;
+	// sc->figure[1].o.z = 250;
+	// sc->figure[1].color.color = 0xffffff;
+	// sc->figure[2].type = 3;
+	// sc->figure[2].o.x = 0;
+	// sc->figure[2].o.y = 50;
+	// sc->figure[2].o.z = 200;
+	// sc->figure[2].n.x = 0;
+	// sc->figure[2].n.y = -1;
+	// sc->figure[2].n.z = 0;
+	// sc->figure[2].color.color = 0xffffff;
+
+	// sc->nof = 1; // change after tests
+	// sc->figure = (t_figure *)malloc(sizeof(t_figure) * 1);
+	// sc->figure[0].type = 0;
+	// sc->figure[0].radius = 100;
+	// sc->figure[0].o.x = 0;
+	// sc->figure[0].o.y = 0;
+	// sc->figure[0].o.z = 250;
+	// sc->figure[0].color.color = 0xffffff;
+
+	sc->nof = 1; // change after tests
+	sc->figure = (t_figure *)malloc(sizeof(t_figure) * 1);
+	sc->figure[0].type = 3;
+	sc->figure[0].o.x = 0;
+	sc->figure[0].o.y = 50;
+	sc->figure[0].o.z = 200;
+	sc->figure[0].n.x = 0;
+	sc->figure[0].n.y = -1;
+	sc->figure[0].n.z = 0;
+	sc->figure[0].color.color = 0xffffff;
+	sc->p_l.o.x = 0;
+	sc->p_l.o.y = 0;
+	sc->p_l.o.z = 200;
+	sc->p_l.intensity = 0.95;
 }
