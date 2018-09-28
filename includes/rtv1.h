@@ -122,6 +122,8 @@ void				which_one(t_scene *sc, int	n);
 void				figures_and_light(t_scene *sc);
 void				light(t_scene *sc);
 void				plane(t_scene *sc);
-void				plane_n(t_scene *sc);
+void				intersect_cyl(t_scene *sc);
+int					read_data(t_scene *sc);
+void				cylinder(t_scene *sc);
 
 #endif

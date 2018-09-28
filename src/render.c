@@ -108,6 +108,39 @@ void	intersect_plane(t_scene *sc)
 	sc->t2 = sc->t1;
 }
 
+void	intersect_cyl(t_scene *sc)
+{
+	ft_vec_sub(sc->cam.o, sc->figure[sc->m].o, &sc->oc);
+
+	sc->k1 = sc->dd.x * sc->dd.x + sc->dd.y * sc->dd.y + sc->dd.z * sc->dd.z -
+	((sc->dd.x * sc->figure[sc->m].n.x + sc->dd.y * sc->figure[sc->m].n.y +
+	sc->dd.z * sc->figure[sc->m].n.z) * (sc->dd.x * sc->figure[sc->m].n.x +
+	sc->dd.y * sc->figure[sc->m].n.y + sc->dd.z * sc->figure[sc->m].n.z));
+
+	sc->k2 = 2 * ((sc->dd.x * sc->oc.x + sc->dd.y * sc->oc.y + sc->dd.z *
+	sc->oc.z) - ((sc->dd.x * sc->figure[sc->m].n.x + sc->dd.y *
+	sc->figure[sc->m].n.y + sc->dd.z * sc->figure[sc->m].n.z) * (sc->oc.x *
+	sc->figure[sc->m].n.x + sc->oc.y * sc->figure[sc->m].n.y + sc->oc.z *
+	sc->figure[sc->m].n.z)));
+
+	sc->k3 = ((sc->oc.x * sc->oc.x + sc->oc.y * sc->oc.y + sc->oc.z *
+	sc->oc.z) - ((sc->oc.x * sc->figure[sc->m].n.x + sc->oc.y *
+	sc->figure[sc->m].n.y + sc->oc.z * sc->figure[sc->m].n.z) * (sc->oc.x *
+	sc->figure[sc->m].n.x + sc->oc.y * sc->figure[sc->m].n.y + sc->oc.z *
+	sc->figure[sc->m].n.z))) - sc->figure[sc->m].radius *
+	sc->figure[sc->m].radius;
+
+	sc->discr = sc->k2 * sc->k2 - 4 * sc->k1 * sc->k3;
+	if (sc->discr < 0)
+	{
+		sc->t1 = 0;
+		sc->t2 = 0;
+		return ;
+	}
+	sc->t1 = (-sc->k2 + sqrtf(sc->discr)) / (2 * sc->k1);
+	sc->t2 = (-sc->k2 - sqrtf(sc->discr)) / (2 * sc->k1);
+}
+
 void	traceray(t_scene *sc)
 {
 	sc->m = 0;
@@ -119,6 +152,8 @@ void	traceray(t_scene *sc)
 			intersect_sph(sc);
 		if (sc->figure[sc->m].type == 3)
 			intersect_plane(sc);
+		if (sc->figure[sc->m].type == 1)
+			intersect_cyl(sc);
 		if (sc->t1 > 1 && sc->t1 < sc->clost)
 		{
 			sc->clost = sc->t1;

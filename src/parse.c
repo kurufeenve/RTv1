@@ -112,6 +112,8 @@ void	which_one(t_scene *sc, int	n)
 	ft_strdel(&sc->line);
 	if (n == 0)
 		sphere(sc);
+	if (n == 1)
+		cylinder(sc);
 	if (n == 3)
 		plane(sc);
 }
@@ -120,66 +122,74 @@ void	sphere(t_scene *sc)
 {
 	sc->figure[sc->i].type = 0;
 	ft_putstr("radius: ");
-	get_next_line(0, &sc->line);
-	sc->figure[sc->i].radius = ft_atoi(sc->line);
+	sc->figure[sc->i].radius = read_data(sc);
 	if (sc->figure[sc->i].radius < 0)
 		sc->figure[sc->i].radius *= -1;
-	ft_strdel(&sc->line);
 	ft_putstr("x: ");
-	get_next_line(0, &sc->line);
-	sc->figure[sc->i].o.x = ft_atoi(sc->line);
-	ft_strdel(&sc->line);
+	sc->figure[sc->i].o.x = read_data(sc);
 	ft_putstr("y: ");
-	get_next_line(0, &sc->line);
-	sc->figure[sc->i].o.y = ft_atoi(sc->line);
-	ft_strdel(&sc->line);
+	sc->figure[sc->i].o.y = read_data(sc);
 	ft_putstr("z: ");
-	get_next_line(0, &sc->line);
-	sc->figure[sc->i].o.z = ft_atoi(sc->line);
-	ft_strdel(&sc->line);
+	sc->figure[sc->i].o.z = read_data(sc);
 	ft_putstr("color in dec: ");
-	get_next_line(0, &sc->line);
-	sc->figure[sc->i].color.color = ft_atoi(sc->line);
+	sc->figure[sc->i].color.color = read_data(sc);
 	if (sc->figure[sc->i].color.color < 0)
 		sc->figure[sc->i].color.color = 0xffffff;
-	ft_strdel(&sc->line);
 }
 
 void	plane(t_scene *sc)
 {
 	ft_putstr("x: ");
-	get_next_line(0, &sc->line);
-	sc->figure[sc->i].o.x = ft_atoi(sc->line);
-	ft_strdel(&sc->line);
+	sc->figure[sc->i].o.x = read_data(sc);
 	ft_putstr("y: ");
-	get_next_line(0, &sc->line);
-	sc->figure[sc->i].o.y = ft_atoi(sc->line);
-	ft_strdel(&sc->line);
+	sc->figure[sc->i].o.y = read_data(sc);
 	ft_putstr("z: ");
-	get_next_line(0, &sc->line);
-	sc->figure[sc->i].o.z = ft_atoi(sc->line);
-	ft_strdel(&sc->line);
-	plane_n(sc);
+	sc->figure[sc->i].o.z = read_data(sc);
+	ft_putstr("nx: ");
+	sc->figure[sc->i].n.x = read_data(sc);
+	ft_putstr("ny: ");
+	sc->figure[sc->i].n.y = read_data(sc);
+	ft_putstr("nz: ");
+	sc->figure[sc->i].n.z = read_data(sc);
 	ft_putstr("color in dec: ");
-	get_next_line(0, &sc->line);
-	sc->figure[sc->i].color.color = ft_atoi(sc->line);
+	sc->figure[sc->i].color.color = read_data(sc);
 	if (sc->figure[sc->i].color.color < 0)
 		sc->figure[sc->i].color.color = 0xffffff;
-	ft_strdel(&sc->line);
 }
 
-void	plane_n(t_scene *sc)
+int		read_data(t_scene *sc)
 {
+	int		n;
+
+	if (sc->line != NULL)
+		ft_strdel(&sc->line);
+	get_next_line(0, &sc->line);
+	n = ft_atoi(sc->line);
+	ft_strdel(&sc->line);
+	return (n);
+}
+
+void	cylinder(t_scene *sc)
+{
+	sc->figure[sc->i].type = 1;
+	ft_putstr("radius: ");
+	sc->figure[sc->i].radius = read_data(sc);
+	if (sc->figure[sc->i].radius < 0)
+		sc->figure[sc->i].radius *= -1;
+	ft_putstr("x: ");
+	sc->figure[sc->i].o.x = read_data(sc);
+	ft_putstr("y: ");
+	sc->figure[sc->i].o.y = read_data(sc);
+	ft_putstr("z: ");
+	sc->figure[sc->i].o.z = read_data(sc);
 	ft_putstr("nx: ");
-	get_next_line(0, &sc->line);
-	sc->figure[sc->i].n.x = ft_atoi(sc->line);
-	ft_strdel(&sc->line);
+	sc->figure[sc->i].n.x = read_data(sc);
 	ft_putstr("ny: ");
-	get_next_line(0, &sc->line);
-	sc->figure[sc->i].n.y = ft_atoi(sc->line);
-	ft_strdel(&sc->line);
+	sc->figure[sc->i].n.y = read_data(sc);
 	ft_putstr("nz: ");
-	get_next_line(0, &sc->line);
-	sc->figure[sc->i].n.z = ft_atoi(sc->line);
-	ft_strdel(&sc->line);
+	sc->figure[sc->i].n.z = read_data(sc);
+	ft_putstr("color in dec: ");
+	sc->figure[sc->i].color.color = read_data(sc);
+	if (sc->figure[sc->i].color.color < 0)
+		sc->figure[sc->i].color.color = 0xffffff;
 }
