@@ -96,8 +96,8 @@ void	default_sc(t_scene *sc)
 	// sc->figure[0].n.y = -1;
 	// sc->figure[0].n.z = 0;
 	// sc->figure[0].color.color = 0xffffff;
-	sc->p_l.o.x = 0;
+	sc->p_l.o.x = 40;
 	sc->p_l.o.y = -200;
-	sc->p_l.o.z = 100;
+	sc->p_l.o.z = 300;
 	sc->p_l.intensity = 0.95;
 }
