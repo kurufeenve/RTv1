@@ -1,0 +1,43 @@
+// sc->nof = 1; // change after tests
+// sc->figure = (t_figure *)malloc(sizeof(t_figure) * 1);
+// sc->figure[0].type = 0;
+// sc->figure[0].radius = 100;
+// sc->figure[0].o.x = 0;
+// sc->figure[0].o.y = 0;
+// sc->figure[0].o.z = 250;
+// sc->figure[0].color.color = 0xffffff;
+
+// sc->nof = 1; // change after tests
+// sc->figure = (t_figure *)malloc(sizeof(t_figure) * 1);
+// sc->figure[0].type = 3;
+// sc->figure[0].o.x = 0;
+// sc->figure[0].o.y = 50;
+// sc->figure[0].o.z = 100;
+// sc->figure[0].n.x = 0;
+// sc->figure[0].n.y = 0;
+// sc->figure[0].n.z = -1;
+// sc->figure[0].color.color = 0xffffff;
+
+// sc->nof = 1; // change after tests
+// sc->figure = (t_figure *)malloc(sizeof(t_figure) * 1);
+// sc->figure[0].type = 1;
+// sc->figure[0].radius = 20;
+// sc->figure[0].o.x = 0;
+// sc->figure[0].o.y = 0;
+// sc->figure[0].o.z = 100;
+// sc->figure[0].n.x = 0;
+// sc->figure[0].n.y = -1;
+// sc->figure[0].n.z = 0;
+// sc->figure[0].color.color = 0xffffff;
+
+// sc->nof = 1; // change after tests
+// sc->figure = (t_figure *)malloc(sizeof(t_figure) * 1);
+// sc->figure[0].type = 2;
+// sc->figure[0].angl = 0.5235987756;
+// sc->figure[0].o.x = 0;
+// sc->figure[0].o.y = 0;
+// sc->figure[0].o.z = 100;
+// sc->figure[0].n.x = 0;
+// sc->figure[0].n.y = -1;
+// sc->figure[0].n.z = 0;
+// sc->figure[0].color.color = 0xffffff;

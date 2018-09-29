@@ -55,7 +55,8 @@ typedef struct		s_figure
 {
 	int				type;
 	int				radius;
-	int				height;
+	float			angl;
+	float			k;
 	t_vector		o;
 	t_vector		n;
 	t_color			color;
@@ -92,6 +93,7 @@ typedef struct		s_scene
 	t_vector		p;
 	t_vector		n;
 	t_vector		l;
+	float			cosa;
 	float			n_dot_l;
 	float			intensity;
 }					t_scene;
@@ -125,5 +127,7 @@ void				plane(t_scene *sc);
 void				intersect_cyl(t_scene *sc);
 int					read_data(t_scene *sc);
 void				cylinder(t_scene *sc);
+void				default_sc2(t_scene *sc);
+void				intersection(t_scene *sc);
 
 #endif

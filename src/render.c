@@ -112,8 +112,8 @@ void	intersect_cyl(t_scene *sc)
 {
 	ft_vec_sub(sc->cam.o, sc->figure[sc->m].o, &sc->oc);
 
-	sc->k1 = sc->dd.x * sc->dd.x + sc->dd.y * sc->dd.y + sc->dd.z * sc->dd.z -
-	((sc->dd.x * sc->figure[sc->m].n.x + sc->dd.y * sc->figure[sc->m].n.y +
+	sc->k1 = (sc->dd.x * sc->dd.x + sc->dd.y * sc->dd.y + sc->dd.z * sc->dd.z)
+	- ((sc->dd.x * sc->figure[sc->m].n.x + sc->dd.y * sc->figure[sc->m].n.y +
 	sc->dd.z * sc->figure[sc->m].n.z) * (sc->dd.x * sc->figure[sc->m].n.x +
 	sc->dd.y * sc->figure[sc->m].n.y + sc->dd.z * sc->figure[sc->m].n.z));
 
@@ -123,12 +123,46 @@ void	intersect_cyl(t_scene *sc)
 	sc->figure[sc->m].n.x + sc->oc.y * sc->figure[sc->m].n.y + sc->oc.z *
 	sc->figure[sc->m].n.z)));
 
-	sc->k3 = ((sc->oc.x * sc->oc.x + sc->oc.y * sc->oc.y + sc->oc.z *
+	sc->k3 = (sc->oc.x * sc->oc.x + sc->oc.y * sc->oc.y + sc->oc.z *
 	sc->oc.z) - ((sc->oc.x * sc->figure[sc->m].n.x + sc->oc.y *
 	sc->figure[sc->m].n.y + sc->oc.z * sc->figure[sc->m].n.z) * (sc->oc.x *
 	sc->figure[sc->m].n.x + sc->oc.y * sc->figure[sc->m].n.y + sc->oc.z *
-	sc->figure[sc->m].n.z))) - sc->figure[sc->m].radius *
+	sc->figure[sc->m].n.z)) - sc->figure[sc->m].radius *
 	sc->figure[sc->m].radius;
+
+	sc->discr = sc->k2 * sc->k2 - 4 * sc->k1 * sc->k3;
+	if (sc->discr < 0)
+	{
+		sc->t1 = 0;
+		sc->t2 = 0;
+		return ;
+	}
+	sc->t1 = (-sc->k2 + sqrtf(sc->discr)) / (2 * sc->k1);
+	sc->t2 = (-sc->k2 - sqrtf(sc->discr)) / (2 * sc->k1);
+}
+
+void	intersect_cone(t_scene *sc)
+{
+	ft_vec_sub(sc->cam.o, sc->figure[sc->m].o, &sc->oc);
+	sc->figure[sc->m].k = (float)tan(sc->figure[sc->m].angl);
+
+	sc->k1 = (sc->dd.x * sc->dd.x + sc->dd.y * sc->dd.y + sc->dd.z * sc->dd.z) -
+	(1 + sc->figure[sc->m].k * sc->figure[sc->m].k) * (sc->dd.x *
+	sc->figure[sc->m].n.x + sc->dd.y * sc->figure[sc->m].n.y +
+	sc->dd.z * sc->figure[sc->m].n.z) * (sc->dd.x * sc->figure[sc->m].n.x +
+	sc->dd.y * sc->figure[sc->m].n.y + sc->dd.z * sc->figure[sc->m].n.z);
+
+	sc->k2 = 2 * ((sc->dd.x * sc->oc.x + sc->dd.y * sc->oc.y + sc->dd.z *
+	sc->oc.z) - (1 + sc->figure[sc->m].k * sc->figure[sc->m].k) * ((sc->dd.x *
+	sc->figure[sc->m].n.x + sc->dd.y * sc->figure[sc->m].n.y + sc->dd.z *
+	sc->figure[sc->m].n.z) * (sc->oc.x * sc->figure[sc->m].n.x + sc->oc.y *
+	sc->figure[sc->m].n.y + sc->oc.z * sc->figure[sc->m].n.z)));
+
+	sc->k3 = (sc->oc.x * sc->oc.x + sc->oc.y * sc->oc.y + sc->oc.z *
+	sc->oc.z) - (1 + sc->figure[sc->m].k * sc->figure[sc->m].k) * ((sc->oc.x *
+	sc->figure[sc->m].n.x + sc->oc.y * sc->figure[sc->m].n.y + sc->oc.z *
+	sc->figure[sc->m].n.z) * (sc->oc.x * sc->figure[sc->m].n.x + sc->oc.y *
+	sc->figure[sc->m].n.y + sc->oc.z * sc->figure[sc->m].n.z));
 
 	sc->discr = sc->k2 * sc->k2 - 4 * sc->k1 * sc->k3;
 	if (sc->discr < 0)
@@ -148,37 +182,7 @@ void	traceray(t_scene *sc)
 	sc->clost = sc->eov;
 	while (sc->m < sc->nof)
 	{
-		if (sc->figure[sc->m].type == 0)
-			intersect_sph(sc);
-		if (sc->figure[sc->m].type == 3)
-			intersect_plane(sc);
-		if (sc->figure[sc->m].type == 1)
-			intersect_cyl(sc);
-		if (sc->t1 > 1 && sc->t1 < sc->clost)
-		{
-			sc->clost = sc->t1;
-			sc->closfig = sc->m;
-			// if ((sc->i == -60 && sc->j == 0) || (sc->i == 60 && sc->j == 0))
-			// 	printf("sc->m = %d, sc->closfig = %d, sc->clost = %f, sc->t1 = %f\n", sc->m, \
-			// sc->closfig, sc->clost, sc->t1);
-		}
-		if (sc->t2 > 1 && sc->t2 < sc->clost)
-		{
-			sc->clost = sc->t2;
-			sc->closfig = sc->m;
-			// if ((sc->i == -60 && sc->j == 0) || (sc->i == 60 && sc->j == 0))
-			// 	printf("sc->m = %d, sc->closfig = %d, sc->clost = %f, sc->t2 = %f\n", sc->m, \
-			// sc->closfig, sc->clost, sc->t2);
-		}
-		if (sc->closfig > -1 || sc->clost != sc->eov)
-			sc->color.color = sc->figure[sc->closfig].color.color;
-		// if ((sc->i == -60 && sc->j == 0) || (sc->i == 60 && sc->j == 0))
-		// 	printf("sc->m = %d, sc->closfig = %d, sc->clost = %f, sc->t1 = %f, sc->t2 = %f\n", sc->m, \
-		// 	sc->closfig, sc->clost, sc->t1, sc->t2);
-
-		if (sc->closfig == -1)
-			sc->color.color = 0x000000;
-		sc->m++;
+		intersection(sc);
 	}
 		// if (sc->i == -50 && sc->j == 0)
 		// 	printf("sc->p.x = %f, sc->p.y = %f, sc->p.z = %f, sc->clost = %f, sc->dd.x = %f\n", sc->p.x, sc->p.y, sc->p.z, sc->clost, sc->dd.x);
@@ -192,18 +196,21 @@ void	traceray(t_scene *sc)
 		sc->n.x = sc->p.x - sc->figure[sc->closfig].o.x;
 		sc->n.y = sc->p.y - sc->figure[sc->closfig].o.y;
 		sc->n.z = sc->p.z - sc->figure[sc->closfig].o.z;
-		// if ((sc->i == -60 && sc->j == 0) || (sc->i == 60 && sc->j == 0))
-		// {
-		// 	printf("sc->m = %d, sc->figure[sc->m].o.x = %f, sc->figure[sc->m].o.y = %f, sc->figure[sc->m].o.z = %f\n", sc->m, sc->figure[sc->m].o.x, sc->figure[sc->m].o.y, sc->figure[sc->m].o.z);
-		// 	printf("sc->n.x = %f, sc->n.y = %f, sc->n.z = %f\n\n", sc->n.x, sc->n.y, sc->n.z);
-		// }
+// 		if (sc->i == 0 && sc->j == 250)
+// 		{
+// 			printf("sc->closfig = %d, sc->figure[sc->closfig].o.x = %f,\
+// sc->figure[sc->closfig].o.y = %f, sc->figure[sc->closfig].o.z = %f\n", sc->closfig,\
+// sc->figure[sc->closfig].o.x, sc->figure[sc->closfig].o.y, sc->figure[sc->closfig].o.z);
+// 			printf("sc->n.x = %f, sc->n.y = %f, sc->n.z = %f\n\n", sc->n.x, sc->n.y, sc->n.z);
+// 		}
 		sc->n.length = sqrt(sc->n.x * sc->n.x + sc->n.y * sc->n.y +
 		sc->n.z * sc->n.z);
 		sc->n.x = sc->n.x / sc->n.length;
 		sc->n.y = sc->n.y / sc->n.length;
 		sc->n.z = sc->n.z / sc->n.length;
-		// if (sc->i == 0 && sc->j == 0)
-		// 	printf("sc->n.x = %f, sc->n.y = %f, sc->n.z = %f\n", sc->n.x, sc->n.y, sc->n.z);
+		// if (sc->i == 0 && sc->j == 250)
+		// 	printf("sc->n.length = %f, sc->n.x = %f, sc->n.y = %f, sc->n.z = %f\n",
+		// 	sc->n.length, sc->n.x, sc->n.y, sc->n.z);
 		if (sc->clost > 1)
 			lighting(sc);
 		sc->color.channel[0] *= sc->intensity;
@@ -219,25 +226,56 @@ void	lighting(t_scene *sc)
 	sc->l.x = sc->p_l.o.x - sc->p.x;
 	sc->l.y = sc->p_l.o.y - sc->p.y;
 	sc->l.z = sc->p_l.o.z - sc->p.z;
-	// sc->l.length = sqrt(sc->l.x * sc->l.x + sc->l.y * sc->l.y +
-	// sc->l.z * sc->l.z);
-	// sc->l.x = sc->l.x / sc->l.length;
-	// sc->l.y = sc->l.y / sc->l.length;
-	// sc->l.z = sc->l.z / sc->l.length;
 	// if (sc->i == 0 && sc->j == 0)
-	// if (sc->i == -60 && sc->j == 0)
-		// printf("sc->l.x = %f, sc->l.y = %f, sc->l.z = %f\n", sc->l.x, sc->l.y, sc->l.z);
+	// if (sc->i == 0 && sc->j == 250)
+	// 	printf("sc->l.x = %f, sc->l.y = %f, sc->l.z = %f\n", sc->l.x, sc->l.y, sc->l.z);
 	// if (sc->i == 60 && sc->j == 0)
 	// 	printf("");
 	sc->n_dot_l = sc->n.x * sc->l.x + sc->n.y * sc->l.y + sc->n.z * sc->l.z;
-	// if (sc->i == 0 && sc->j == 0)
+	// if (sc->i == 0 && sc->j == 250)
 	// 	printf("sc->n_dot_l = %f\n", sc->n_dot_l);
 	if (sc->n_dot_l > 0)
 		sc->intensity += sc->p_l.intensity * sc->n_dot_l / (sqrt(sc->n.x * sc->n.x
 		+ sc->n.y * sc->n.y + sc->n.z * sc->n.z) * sqrt(sc->l.x * sc->l.x + sc->l.y
 		* sc->l.y + sc->l.z * sc->l.z));
-	// if (sc->i == 0 && sc->j == 0)
-	// 	printf("sc->intensity = %f, sc->n_dot_l = %f, |n|*|l| = %f\n", sc->intensity, sc->n_dot_l, (sqrt(sc->n.x * sc->n.x
-		// + sc->n.y * sc->n.y + sc->n.z * sc->n.z) * sqrt(sc->l.x * sc->l.x + sc->l.y
-		// * sc->l.y + sc->l.z * sc->l.z)));
+	// if (sc->i == 0 && sc->j == 250)
+	// 	printf("sc->intensity = %f, sc->n_dot_l = %f, |n|*|l| = %f\n", sc->intensity,
+	// 	sc->n_dot_l, ((sc->l.x * sc->l.x + sc->l.y * sc->l.y + sc->l.z * sc->l.z)));
+}
+
+void	intersection(t_scene *sc)
+{
+	if (sc->figure[sc->m].type == 0)
+		intersect_sph(sc);
+	if (sc->figure[sc->m].type == 3)
+		intersect_plane(sc);
+	if (sc->figure[sc->m].type == 1)
+		intersect_cyl(sc);
+	if (sc->figure[sc->m].type == 2)
+		intersect_cone(sc);
+	if (sc->t1 > 1 && sc->t1 < sc->clost)
+	{
+		sc->clost = sc->t1;
+		sc->closfig = sc->m;
+		// if ((sc->i == -60 && sc->j == 0) || (sc->i == 60 && sc->j == 0))
+		// 	printf("sc->m = %d, sc->closfig = %d, sc->clost = %f, sc->t1 = %f\n", sc->m, \
+		// sc->closfig, sc->clost, sc->t1);
+	}
+	if (sc->t2 > 1 && sc->t2 < sc->clost)
+	{
+		sc->clost = sc->t2;
+		sc->closfig = sc->m;
+		// if ((sc->i == -60 && sc->j == 0) || (sc->i == 60 && sc->j == 0))
+		// 	printf("sc->m = %d, sc->closfig = %d, sc->clost = %f, sc->t2 = %f\n", sc->m, \
+		// sc->closfig, sc->clost, sc->t2);
+	}
+	if (sc->closfig > -1 || sc->clost != sc->eov)
+		sc->color.color = sc->figure[sc->closfig].color.color;
+	// if (sc->i == 0 && sc->j == 250)
+	// 	printf("sc->m = %d, sc->closfig = %d, sc->clost = %f, sc->t1 = %f, sc->t2 = %f\n", sc->m, \
+	// 	sc->closfig, sc->clost, sc->t1, sc->t2);
+
+	if (sc->closfig == -1)
+		sc->color.color = 0x000000;
+	sc->m++;
 }
