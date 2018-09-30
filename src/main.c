@@ -12,23 +12,24 @@
 
 #include "../includes/rtv1.h"
 
-int		main(void)
+int		main(int argc, char **argv)
 {
 	t_sdl	s;
 	t_scene	sc;
 
-	figures_and_light(&sc);	
-	struct_init(&sc);
-	
-	
-	//ft_parse(&sc);
-	ft_sdl_init(&s, &sc);
-	render(&sc, &s);
-	SDL_UpdateWindowSurface(s.win);
-	while (!s.quit)
+	if (argc != 2)
 	{
-		key_hook(&s, &sc);
+		ft_putstr("wront number of arguments\n");
+		exit(0);
 	}
+	struct_init(&sc);
+	sc.filename = argv[1];
+	ft_parse(&sc);
+	// ft_sdl_init(&s, &sc);
+	// render(&sc, &s);
+	// SDL_UpdateWindowSurface(s.win);
+	while (!s.quit)
+		key_hook(&s, &sc);
 	system("leaks RTv1");
 	return (0);
 }
@@ -74,8 +75,6 @@ void	key_hook(t_sdl *s, t_scene *sc)
 		camera_move_x(s, sc);
 		camera_rotate(s, sc);
 		camera_rotate_z(s, sc);
-		// if (s.event.type == SDL_KEYUP)
-		// 	break ;
 		if (s->event.type == SDL_WINDOWEVENT)
 			if (s->event.window.event == SDL_WINDOWEVENT_CLOSE)
 			{
@@ -111,46 +110,4 @@ void	ft_sdl_init(t_sdl *s, t_scene *sc)
 	}
 	s->surface = SDL_GetWindowSurface(s->win);
 	SDL_memset(s->surface->pixels, 0, s->surface->h * s->surface->pitch);
-}
-
-void	figures_and_light(t_scene *sc)
-{
-	ft_putstr("enter the number of figures: ");
-	get_next_line(0, &sc->line);
-	if ((sc->nof = ft_atoi(sc->line)) > 0)
-	{
-		ft_strdel(&sc->line);
-		printf("sc.nof = %d\n", sc->nof);
-		param(sc);
-		ft_putstr("enter point light source:\n");
-		light(sc);
-	}
-	else
-		default_sc(sc);
-}
-
-void	light(t_scene *sc)
-{
-	ft_strdel(&sc->line);
-	ft_putstr("x: ");
-	get_next_line(0, &sc->line);
-	sc->p_l.o.x = ft_atoi(sc->line);
-	ft_strdel(&sc->line);
-	ft_putstr("y: ");
-	get_next_line(0, &sc->line);
-	sc->p_l.o.y = ft_atoi(sc->line);
-	ft_strdel(&sc->line);
-	ft_putstr("z: ");
-	get_next_line(0, &sc->line);
-	sc->p_l.o.z = ft_atoi(sc->line);
-	ft_strdel(&sc->line);
-	ft_putstr("point light intensity (0 - 100)): ");
-	get_next_line(0, &sc->line);
-	sc->p_l.intensity = ft_atoi(sc->line) / 100;
-	ft_strdel(&sc->line);
-	if (sc->p_l.intensity >= 1)
-		sc->p_l.intensity = 0.95;
-	sc->intensity = 1 - sc->p_l.intensity;
-	if (sc->intensity > 0.1)
-		sc->intensity = 0.1;
 }

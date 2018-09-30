@@ -64,6 +64,13 @@ typedef struct		s_figure
 
 typedef struct		s_scene
 {
+	int				fd;
+	char			*filename;
+	char			*str;
+	int				index;
+	int				index2;
+	char			*buff;
+	int				type;
 	int				nof;
 	char			*line;
 	t_figure		*figure;
@@ -96,6 +103,7 @@ typedef struct		s_scene
 	float			cosa;
 	float			n_dot_l;
 	float			intensity;
+	float			mm;
 }					t_scene;
 
 void				ft_parse(t_scene *sc);
@@ -117,17 +125,23 @@ void				camera_rotate(t_sdl *s, t_scene *sc);
 void				camera_rotate_z(t_sdl *s, t_scene *sc);
 void				key_hook(t_sdl *s, t_scene *sc);
 void				ft_sdl_init(t_sdl *s, t_scene *sc);
-void				default_sc(t_scene *sc);
 void				sphere(t_scene *sc);
 void				param(t_scene *sc);
-void				which_one(t_scene *sc, int	n);
-void				figures_and_light(t_scene *sc);
+void				which_one(t_scene *sc);
 void				light(t_scene *sc);
 void				plane(t_scene *sc);
 void				intersect_cyl(t_scene *sc);
+void				intersect_plane(t_scene *sc);
+void				intersect_cone(t_scene *sc);
 int					read_data(t_scene *sc);
 void				cylinder(t_scene *sc);
-void				default_sc2(t_scene *sc);
 void				intersection(t_scene *sc);
+void				normal_sph(t_scene *sc);
+void				normal_plane(t_scene *sc);
+void				normal_cone(t_scene *sc);
+void				normal_cyl(t_scene *sc);
+void				cone(t_scene *sc);
+void				read_figures(t_scene *sc);
+void				count_figures(t_scene *sc);
 
 #endif

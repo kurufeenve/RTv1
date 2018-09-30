@@ -1,33 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnsub.c                                       :+:      :+:    :+:   */
+/*   ft_indexof.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vordynsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/27 21:12:18 by vordynsk          #+#    #+#             */
-/*   Updated: 2018/09/27 21:12:20 by vordynsk         ###   ########.fr       */
+/*   Created: 2018/09/30 20:16:19 by vordynsk          #+#    #+#             */
+/*   Updated: 2018/09/30 20:16:21 by vordynsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+#include <stdio.h>
 #include "includes/libft.h"
 
-char	*ft_strnsub(char const *s, size_t start, size_t end)
+int		ft_indexof(char const *h, char const *n, size_t start, int f)
 {
-	char	*res;
-	char	*buf;
+	size_t	i;
 
-	if (s == NULL)
-		return (NULL);
-	if (!(res = (char *)malloc(sizeof(char) * (end - start + 1))))
-		return (NULL);
-	buf = res;
-	res[end - start] = '\0';
-	while (start < end && s[start] != '\0')
+	i = 0;
+	while (h[start] != '\0' && n[i] != '\0')
 	{
-		*res = s[start];
-		res++;
+		if (n[i] == '\0')
+			return (f);
+		if (h[start] == n[i] && f == -1)
+			f = (int)start;
+		if (h[start] == n[i])
+		{
+			i++;
+			start++;
+			continue ;
+		}
+		if (h[start] != n[i])
+		{
+			f = -1;
+			i = 0;
+		}
+		if (h[start] != n[i] && h[start + 1] == '\0')
+			return (-1);
 		start++;
 	}
-	return (buf);
+	return (f);
 }

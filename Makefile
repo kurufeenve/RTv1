@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRC = main.c init.c render.c parse.c camera.c
+SRC = main.c init.c render.c render2.c render3.c parse.c parcse2.c camera.c
 SRC_DIR = ./src/
 OBJ_DIR = ./obj/
 OBJ = $(addprefix $(OBJ_DIR),$(SRC:.c=.o))

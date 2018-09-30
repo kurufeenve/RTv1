@@ -1,35 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   parcse2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vordynsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/17 16:41:06 by vordynsk          #+#    #+#             */
-/*   Updated: 2018/09/17 16:41:08 by vordynsk         ###   ########.fr       */
+/*   Created: 2018/09/30 22:44:48 by vordynsk          #+#    #+#             */
+/*   Updated: 2018/09/30 22:44:49 by vordynsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/rtv1.h"
 
-void	struct_init(t_scene *sc)
-{
-	sc->cam.o.x = 0;
-	sc->cam.o.y = 0;
-	sc->cam.o.z = 0;
-	sc->cam.ro.x = 0;
-	sc->cam.ro.y = 0;
-	sc->cam.ro.z = 0;
-	sc->cw = 1000;
-	sc->ch = 1000;
-	sc->vw = 1;
-	sc->vh = 1;
-	sc->d = 1;
-	sc->t1 = 0;
-	sc->t2 = 0;
-	sc->eov = 1000.0;
-	sc->clost = sc->eov;
-	sc->index = 0;
-	sc->index2 = 0;
-	sc->nof = 0;
-}
+// void	read_figures(t_scene *sc)
+// {
+// 	if (sc->type == 0)
+
+// 	else if (sc->type == 1)
+
+// 	else if (sc->type == 2)
+
+// 	else if (sc->type == 3)
+
+// 	else if (sc->type == 4)
+
+// 	else if (sc->type == 5)
+
+// 	else if (sc->type < 0 && sc->type > 5)
+// 	{
+// 		ft_putstr("Wrong type\n");
+// 		system("leaks RTv1");
+// 		exit(0);
+// 	}
+// }
+
+// void	read_sphere(t_scene)
+// {
+
+// }
