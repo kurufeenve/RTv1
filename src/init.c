@@ -30,6 +30,7 @@ void	struct_init(t_scene *sc)
 	sc->eov = 1000.0;
 	sc->clost = sc->eov;
 	sc->index = 0;
+	sc->prev_type = 0;
 	sc->index2 = 0;
 	sc->nof = 0;
 }

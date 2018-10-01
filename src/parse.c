@@ -24,37 +24,37 @@ void	read_scene(t_scene *sc)
 	int		t;
 	char	*buff;
 
-	buff = ft_strchr(sc->filename, 46);
+	buff = ft_strchr(sc->pa.filename, 46);
 	if (ft_strcmp(buff, ".sc") != 0)
 	{
 		ft_putstr("wrong file extension\n");
 		system("leaks RTv1");
 		exit(0);
 	}
-	sc->fd = open(sc->filename, O_RDONLY);
+	sc->pa.fd = open(sc->pa.filename, O_RDONLY);
 	t = 1;
 	while (t > 0)
 	{
-		t = get_next_line(sc->fd, &sc->line);
+		t = get_next_line(sc->pa.fd, &sc->pa.line);
 		if (t < 0)
 		{
 			ft_putstr("\n===	!!! NOT A FILE !!!	===\n\n");
 			system("leaks RTv1");
 			exit(0);
 		}
-		sc->str = ft_strjoin2(sc->str, sc->line);
+		sc->pa.str = ft_strjoin2(sc->pa.str, sc->pa.line);
 	}
-	ft_delwhitesp(&sc->str);
-	printf("sc->str = %s\n", sc->str);
+	ft_delwhitesp(&sc->pa.str);
+	printf("sc->pa.str = %s\n", sc->pa.str);
 }
 
 void	validation(t_scene *sc)
 {
 	sc->i = 0;
-	while (sc->str[sc->i] != '\0')
+	while (sc->pa.str[sc->i] != '\0')
 	{
-		if (ft_isalnum(sc->str[sc->i]) != 1 && sc->str[sc->i] != ';' &&
-		sc->str[sc->i] != '=' && sc->str[sc->i] != '-')
+		if (ft_isalnum(sc->pa.str[sc->i]) != 1 && sc->pa.str[sc->i] != ';' &&
+		sc->pa.str[sc->i] != '=' && sc->pa.str[sc->i] != '-')
 		{
 			ft_putstr("syntax error\n");
 			system("leaks RTv1");
@@ -69,31 +69,42 @@ void	count_figures(t_scene *sc)
 {
 	while (1)
 	{
-		if ((sc->index = ft_indexof(sc->str, "type=", sc->index, 0)) == -1)
+		if ((sc->pa.index = ft_indexof(sc->pa.str, "type=", sc->pa.index, 0)) == -1)
 			break ;
-		sc->index2 = ft_strnfind(sc->str, ';', sc->index);
-		sc->buff = ft_strnsub(sc->str, sc->index + 5, sc->index2);
-		sc->type = ft_atoi(sc->buff);
-		if (sc->type >= 0 && sc->type <=3)
-			sc->nof++;
-		ft_strdel(&sc->buff);
-		sc->index++;
+		sc->pa.index2 = ft_strnfind(sc->pa.str, ';', sc->pa.index);
+		sc->pa.buff = ft_strnsub(sc->pa.str, sc->pa.index + 5, sc->pa.index2);
+		sc->pa.type = ft_atoi(sc->pa.buff);
+		if (sc->pa.type >= 0 && sc->pa.type <=3)
+			sc->pa.nof++;
+		ft_strdel(&sc->pa.buff);
+		sc->pa.index++;
 	}
+	sc->figure = (t_figure *)malloc(sizeof(t_figure) * sc->pa.nof);
+	sc->pa.index = 0;
 }
 
 void	parse_fig(t_scene *sc)
 {
+	sc->i = 0;
 	count_figures(sc);
-	printf("sc->nof = %d\n", sc->nof);
-	while (1)
+	while (sc->pa.index != -1)
 	{
-		if ((sc->index = ft_indexof(sc->str, "type=", sc->index, 0)) == -1)
+		if ((sc->pa.index = ft_indexof(sc->pa.str, "type=", sc->pa.prev_type, 0)) == -1)
 			break ;
-		sc->index2 = ft_strnfind(sc->str, ';', sc->index);
-		sc->buff = ft_strnsub(sc->str, sc->index + 5, sc->index2);
-		sc->type = ft_atoi(sc->buff);
-		ft_strdel(&sc->buff);
+		sc->pa.index2 = ft_strnfind(sc->pa.str, ';', sc->pa.index);
+		sc->pa.buff = ft_strnsub(sc->pa.str, sc->pa.index + 5, sc->pa.index2);
+		sc->pa.type = ft_atoi(sc->pa.buff);
+		ft_strdel(&sc->pa.buff);
+		sc->pa.prev_type = sc->pa.index;
+		sc->pa.index = ft_indexof(sc->pa.str, "type=", sc->pa.prev_type + 1, 0);
+		if (sc->pa.index == -1)
+			sc->pa.index = ft_strlen(sc->pa.str);
+		sc->pa.buff = ft_strnsub(sc->pa.str, sc->pa.prev_type, sc->pa.index);
 		//read_figures(sc);
-		sc->index++; // might not need it in future
+		ft_strdel(&sc->pa.buff);
+		if (sc->pa.index == (int)ft_strlen(sc->pa.str))
+			sc->pa.index = -1;
+		sc->i++;
+		sc->pa.prev_type++; // might not need it in future
 	}
 }

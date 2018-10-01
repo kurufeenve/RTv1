@@ -62,11 +62,27 @@ typedef struct		s_figure
 	t_color			color;
 }					t_figure;
 
-typedef struct		s_scene
+typedef struct		s_parse
 {
 	int				fd;
 	char			*filename;
 	char			*str;
+	int				prev_type;
+	int				index;
+	int				index2;
+	char			*buff;
+	int				type;
+	int				nof;
+	char			*line;
+}					t_parse;
+
+typedef struct		s_scene
+{
+	t_parse			pa;
+	int				fd;
+	char			*filename;
+	char			*str;
+	int				prev_type;
 	int				index;
 	int				index2;
 	char			*buff;

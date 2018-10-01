@@ -16,15 +16,15 @@
 // {
 // 	if (sc->type == 0)
 
-// 	else if (sc->type == 1)
+// 	// else if (sc->type == 1)
 
-// 	else if (sc->type == 2)
+// 	// else if (sc->type == 2)
 
-// 	else if (sc->type == 3)
+// 	// else if (sc->type == 3)
 
-// 	else if (sc->type == 4)
+// 	// else if (sc->type == 4)
 
-// 	else if (sc->type == 5)
+// 	// else if (sc->type == 5)
 
 // 	else if (sc->type < 0 && sc->type > 5)
 // 	{
@@ -36,5 +36,5 @@
 
 // void	read_sphere(t_scene)
 // {
-
+	
 // }
