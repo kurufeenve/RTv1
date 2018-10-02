@@ -18,12 +18,9 @@ int		main(int argc, char **argv)
 	t_scene	sc;
 
 	if (argc != 2)
-	{
-		ft_putstr("wront number of arguments\n");
-		exit(0);
-	}
+		errors(0);
 	struct_init(&sc);
-	sc.filename = argv[1];
+	sc.pa.filename = argv[1];
 	ft_parse(&sc);
 	// ft_sdl_init(&s, &sc);
 	// render(&sc, &s);
@@ -94,7 +91,7 @@ void	ft_sdl_init(t_sdl *s, t_scene *sc)
 		if ((s->error = (char *)SDL_GetError()))
 			ft_putstr(s->error);
 		system("leaks RTv1");
-		exit(-1);
+		exit(0);
 	}
 	else
 		ft_putstr("EVERYTHING was initialised.\n");
@@ -106,8 +103,24 @@ void	ft_sdl_init(t_sdl *s, t_scene *sc)
 		if ((s->error = (char *)SDL_GetError()))
 			ft_putstr(s->error);
 		system("leaks RTv1");
-		exit(-1);
+		exit(0);
 	}
 	s->surface = SDL_GetWindowSurface(s->win);
 	SDL_memset(s->surface->pixels, 0, s->surface->h * s->surface->pitch);
+}
+
+void	errors(int	n)
+{
+	if (n == 0)
+		ft_putstr("wront number of arguments\n");
+	else if(n == 1)
+		ft_putstr("wrong file extension\n");
+	else if(n == 2)
+		ft_putstr("\n===	!!! NOT A FILE !!!	===\n\n");
+	else if(n == 3)
+		ft_putstr("syntax error\n");
+	else if(n == 4)
+		ft_putstr("Wrong type\n");
+	system("leaks RTv1");
+	exit(0);
 }

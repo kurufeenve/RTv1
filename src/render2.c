@@ -74,7 +74,7 @@ void	traceray(t_scene *sc)
 	sc->m = 0;
 	sc->closfig = -1;
 	sc->clost = sc->eov;
-	while (sc->m < sc->nof)
+	while (sc->m < sc->pa.nof)
 	{
 		ft_vec_sub(sc->cam.o, sc->figure[sc->m].o, &sc->oc);
 		intersection(sc);

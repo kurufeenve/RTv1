@@ -29,8 +29,9 @@ void	struct_init(t_scene *sc)
 	sc->t2 = 0;
 	sc->eov = 1000.0;
 	sc->clost = sc->eov;
-	sc->index = 0;
-	sc->prev_type = 0;
-	sc->index2 = 0;
-	sc->nof = 0;
+	sc->pa.index = 0;
+	sc->pa.prev_type = 0;
+	sc->pa.index2 = 0;
+	sc->pa.nof = 0;
+	sc->pa.boo = 1;
 }

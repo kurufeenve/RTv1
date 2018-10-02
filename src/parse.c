@@ -26,26 +26,18 @@ void	read_scene(t_scene *sc)
 
 	buff = ft_strchr(sc->pa.filename, 46);
 	if (ft_strcmp(buff, ".sc") != 0)
-	{
-		ft_putstr("wrong file extension\n");
-		system("leaks RTv1");
-		exit(0);
-	}
+		errors(1);
 	sc->pa.fd = open(sc->pa.filename, O_RDONLY);
 	t = 1;
 	while (t > 0)
 	{
 		t = get_next_line(sc->pa.fd, &sc->pa.line);
 		if (t < 0)
-		{
-			ft_putstr("\n===	!!! NOT A FILE !!!	===\n\n");
-			system("leaks RTv1");
-			exit(0);
-		}
+			errors(2);
 		sc->pa.str = ft_strjoin2(sc->pa.str, sc->pa.line);
 	}
 	ft_delwhitesp(&sc->pa.str);
-	printf("sc->pa.str = %s\n", sc->pa.str);
+	//printf("sc->pa.str = %s\n", sc->pa.str);
 }
 
 void	validation(t_scene *sc)
@@ -55,11 +47,7 @@ void	validation(t_scene *sc)
 	{
 		if (ft_isalnum(sc->pa.str[sc->i]) != 1 && sc->pa.str[sc->i] != ';' &&
 		sc->pa.str[sc->i] != '=' && sc->pa.str[sc->i] != '-')
-		{
-			ft_putstr("syntax error\n");
-			system("leaks RTv1");
-			exit(0);
-		}
+			errors(3);
 		sc->i++;
 	}
 	sc->i = 0;
@@ -73,6 +61,9 @@ void	count_figures(t_scene *sc)
 			break ;
 		sc->pa.index2 = ft_strnfind(sc->pa.str, ';', sc->pa.index);
 		sc->pa.buff = ft_strnsub(sc->pa.str, sc->pa.index + 5, sc->pa.index2);
+		printf("sc->pa.buff = %s\n", sc->pa.buff);
+		if (ft_isnumber(sc->pa.buff) == 0)
+			errors(3);
 		sc->pa.type = ft_atoi(sc->pa.buff);
 		if (sc->pa.type >= 0 && sc->pa.type <=3)
 			sc->pa.nof++;
@@ -87,7 +78,7 @@ void	parse_fig(t_scene *sc)
 {
 	sc->i = 0;
 	count_figures(sc);
-	while (sc->pa.index != -1)
+	while (sc->pa.boo > 0)
 	{
 		if ((sc->pa.index = ft_indexof(sc->pa.str, "type=", sc->pa.prev_type, 0)) == -1)
 			break ;
@@ -97,13 +88,12 @@ void	parse_fig(t_scene *sc)
 		ft_strdel(&sc->pa.buff);
 		sc->pa.prev_type = sc->pa.index;
 		sc->pa.index = ft_indexof(sc->pa.str, "type=", sc->pa.prev_type + 1, 0);
-		if (sc->pa.index == -1)
+		if (sc->pa.index == -1 && (sc->pa.boo = -1))
 			sc->pa.index = ft_strlen(sc->pa.str);
 		sc->pa.buff = ft_strnsub(sc->pa.str, sc->pa.prev_type, sc->pa.index);
-		//read_figures(sc);
+		//printf("sc->pa.prev_type = %d, sc->pa.index = %d, sc->pa.type = %d, sc->pa.buff = %s\n", sc->pa.prev_type, sc->pa.index, sc->pa.type, sc->pa.buff);
+		read_figures(sc);
 		ft_strdel(&sc->pa.buff);
-		if (sc->pa.index == (int)ft_strlen(sc->pa.str))
-			sc->pa.index = -1;
 		sc->i++;
 		sc->pa.prev_type++; // might not need it in future
 	}

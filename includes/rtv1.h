@@ -67,10 +67,12 @@ typedef struct		s_parse
 	int				fd;
 	char			*filename;
 	char			*str;
+	int				boo;
 	int				prev_type;
 	int				index;
 	int				index2;
 	char			*buff;
+	char			*f_buff;
 	int				type;
 	int				nof;
 	char			*line;
@@ -79,16 +81,6 @@ typedef struct		s_parse
 typedef struct		s_scene
 {
 	t_parse			pa;
-	int				fd;
-	char			*filename;
-	char			*str;
-	int				prev_type;
-	int				index;
-	int				index2;
-	char			*buff;
-	int				type;
-	int				nof;
-	char			*line;
 	t_figure		*figure;
 	int				i;
 	int				j;
@@ -159,5 +151,9 @@ void				normal_cyl(t_scene *sc);
 void				cone(t_scene *sc);
 void				read_figures(t_scene *sc);
 void				count_figures(t_scene *sc);
+void				read_sphere(t_scene *sc);
+void				errors(int	n);
+void				read_o_vector(t_scene *sc);
+void				read_n_vector(t_scene *sc);
 
 #endif
