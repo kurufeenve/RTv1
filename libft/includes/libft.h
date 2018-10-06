@@ -120,5 +120,6 @@ int					ft_strnfind(char *haystack, char needle, size_t n);
 int					ft_indexof(char const *h, char const *n, size_t start,
 	int f);
 char				*ft_strnsub(char const *s, size_t start, size_t end);
+int					ft_atoi_base(char const *str, int base);
 
 #endif

@@ -12,6 +12,12 @@
 
 #include "../includes/rtv1.h"
 
+/*
+potential bugs:
+angle - degree to radian convertion multiple times through the code. check = 0;
+
+*/
+
 int		main(int argc, char **argv)
 {
 	t_sdl	s;
@@ -22,9 +28,22 @@ int		main(int argc, char **argv)
 	struct_init(&sc);
 	sc.pa.filename = argv[1];
 	ft_parse(&sc);
-	// ft_sdl_init(&s, &sc);
-	// render(&sc, &s);
-	// SDL_UpdateWindowSurface(s.win);
+	printf("type = %d, radius = %d, x = %f, y = %f, z = %f, color = %x\n", sc.figure[0].type,
+	sc.figure[0].radius, sc.figure[0].o.x, sc.figure[0].o.y, sc.figure[0].o.z, sc.figure[0].color.color);
+	printf("type = %d, radius = %d, x = %f, y = %f, z = %f, color = %x\n", sc.figure[1].type,
+	sc.figure[1].radius, sc.figure[1].o.x, sc.figure[1].o.y, sc.figure[1].o.z, sc.figure[1].color.color);
+	printf("type = %d, ox = %f, oy = %f, oz = %f, nx = %f, ny = %f, nz = %f, color = %x\n",
+	sc.figure[2].type, sc.figure[2].o.x, sc.figure[2].o.y, sc.figure[2].o.z, sc.figure[2].o.x,
+	sc.figure[2].o.y, sc.figure[2].o.z, sc.figure[2].color.color);
+	printf("type = %d, radius = %d, ox = %f, oy = %f, oz = %f, nx = %f, ny = %f, nz = %f, color = %x\n",
+	sc.figure[3].type, sc.figure[3].radius, sc.figure[3].o.x, sc.figure[3].o.y, sc.figure[3].o.z,
+	sc.figure[3].n.x, sc.figure[3].n.y, sc.figure[3].n.z, sc.figure[3].color.color);
+	printf("type = %d, angle = %f, ox = %f, oy = %f, oz = %f, nx = %f, ny = %f, nz = %f, color = %x\n",
+	sc.figure[4].type, sc.figure[4].angl, sc.figure[4].o.x, sc.figure[4].o.y, sc.figure[4].o.z,
+	sc.figure[4].n.x, sc.figure[4].n.y, sc.figure[4].n.z, sc.figure[4].color.color);
+	ft_sdl_init(&s, &sc);
+	render(&sc, &s);
+	SDL_UpdateWindowSurface(s.win);
 	while (!s.quit)
 		key_hook(&s, &sc);
 	system("leaks RTv1");

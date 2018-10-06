@@ -9,7 +9,7 @@
 /*   Updated: 2018/09/30 20:16:21 by vordynsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
+
 #include "includes/libft.h"
 
 int		ft_indexof(char const *h, char const *n, size_t start, int f)

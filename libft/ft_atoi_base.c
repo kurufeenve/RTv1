@@ -9,20 +9,21 @@
 /*   Updated: 2018/10/03 21:38:39 by vordynsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
+
 #include "includes/libft.h"
 
 static int		base_check(char c, int base)
 {
-	char		buff[17];
+	char		buff[23];
 	int			i;
 
 	ft_strcpy(buff, "0123456789ABCDEF");
 	i = 0;
 	while (i < base)
 	{
-		if (buff[i] == c)
+		if (buff[i] == ft_toupper(c))
 			return (1);
+		i++;
 	}
 	return (-1);
 }
@@ -50,15 +51,7 @@ int				ft_atoi_base(char const *str, int base)
 		if (str[i] > 47 && str[i] < 58)
 			num = (num * base) + (str[i++] - 48);
 		else
-			num = (num * base) + (str[i++] - 55);
+			num = (num * base) + (ft_toupper(str[i++]) - 55);
 	}
 	return (((int)num * s));
-}
-
-int		main(void)
-{
-	char	s[] = "256";
-	int		i;
-
-	print("");
 }

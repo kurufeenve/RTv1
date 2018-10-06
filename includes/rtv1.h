@@ -114,8 +114,24 @@ typedef struct		s_scene
 	float			mm;
 }					t_scene;
 
+/*
+**parser
+*/
+
 void				ft_parse(t_scene *sc);
 void				read_scene(t_scene *sc);
+void				read_figures(t_scene *sc);
+void				count_figures(t_scene *sc);
+void				read_sphere(t_scene *sc);
+void				read_cylinder(t_scene *sc);
+void				read_cone(t_scene *sc);
+void				read_plane(t_scene *sc);
+void				read_radius(t_scene *sc);
+void				read_angle(t_scene *sc);
+void				read_o_vector(t_scene *sc);
+void				read_n_vector(t_scene *sc);
+void				read_color(t_scene *sc);
+
 void				validation(t_scene *sc);
 void				parse_fig(t_scene *sc);
 void				struct_init(t_scene *sc);
@@ -149,11 +165,6 @@ void				normal_plane(t_scene *sc);
 void				normal_cone(t_scene *sc);
 void				normal_cyl(t_scene *sc);
 void				cone(t_scene *sc);
-void				read_figures(t_scene *sc);
-void				count_figures(t_scene *sc);
-void				read_sphere(t_scene *sc);
 void				errors(int	n);
-void				read_o_vector(t_scene *sc);
-void				read_n_vector(t_scene *sc);
 
 #endif

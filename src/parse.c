@@ -61,7 +61,6 @@ void	count_figures(t_scene *sc)
 			break ;
 		sc->pa.index2 = ft_strnfind(sc->pa.str, ';', sc->pa.index);
 		sc->pa.buff = ft_strnsub(sc->pa.str, sc->pa.index + 5, sc->pa.index2);
-		printf("sc->pa.buff = %s\n", sc->pa.buff);
 		if (ft_isnumber(sc->pa.buff) == 0)
 			errors(3);
 		sc->pa.type = ft_atoi(sc->pa.buff);
@@ -72,6 +71,7 @@ void	count_figures(t_scene *sc)
 	}
 	sc->figure = (t_figure *)malloc(sizeof(t_figure) * sc->pa.nof);
 	sc->pa.index = 0;
+	sc->pa.index2 = 0;
 }
 
 void	parse_fig(t_scene *sc)
@@ -91,7 +91,6 @@ void	parse_fig(t_scene *sc)
 		if (sc->pa.index == -1 && (sc->pa.boo = -1))
 			sc->pa.index = ft_strlen(sc->pa.str);
 		sc->pa.buff = ft_strnsub(sc->pa.str, sc->pa.prev_type, sc->pa.index);
-		//printf("sc->pa.prev_type = %d, sc->pa.index = %d, sc->pa.type = %d, sc->pa.buff = %s\n", sc->pa.prev_type, sc->pa.index, sc->pa.type, sc->pa.buff);
 		read_figures(sc);
 		ft_strdel(&sc->pa.buff);
 		sc->i++;
