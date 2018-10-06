@@ -41,6 +41,8 @@ int		main(int argc, char **argv)
 	printf("type = %d, angle = %f, ox = %f, oy = %f, oz = %f, nx = %f, ny = %f, nz = %f, color = %x\n",
 	sc.figure[4].type, sc.figure[4].angl, sc.figure[4].o.x, sc.figure[4].o.y, sc.figure[4].o.z,
 	sc.figure[4].n.x, sc.figure[4].n.y, sc.figure[4].n.z, sc.figure[4].color.color);
+	// printf("type = %d, radius = %d, x = %f, y = %f, z = %f, color = %x\n", sc.figure[0].type,
+	// sc.figure[0].radius, sc.figure[0].o.x, sc.figure[0].o.y, sc.figure[0].o.z, sc.figure[0].color.color);
 	ft_sdl_init(&s, &sc);
 	render(&sc, &s);
 	SDL_UpdateWindowSurface(s.win);

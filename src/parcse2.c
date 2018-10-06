@@ -22,10 +22,10 @@ void	read_figures(t_scene *sc)
 		read_cone(sc);
 	else if (sc->pa.type == 3)
 		read_plane(sc);
-	// else if (sc->pa.type == 4)
-	// 	printf("sc->pa.type = %d, sc->pa.buff = %s\n", sc->pa.type, sc->pa.buff);
-	// else if (sc->pa.type == 5)
-	// 	printf("sc->pa.type = %d, sc->pa.buff = %s\n", sc->pa.type, sc->pa.buff);
+	else if (sc->pa.type == 4)
+		read_light(sc);
+	else if (sc->pa.type == 5)
+		read_camera(sc);
 	else if (sc->pa.type < 0 && sc->pa.type > 5)
 		errors(4);
 }

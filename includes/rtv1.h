@@ -126,11 +126,15 @@ void				read_sphere(t_scene *sc);
 void				read_cylinder(t_scene *sc);
 void				read_cone(t_scene *sc);
 void				read_plane(t_scene *sc);
+void				read_light(t_scene *sc);
+void				read_camera(t_scene *sc);
 void				read_radius(t_scene *sc);
 void				read_angle(t_scene *sc);
 void				read_o_vector(t_scene *sc);
 void				read_n_vector(t_scene *sc);
 void				read_color(t_scene *sc);
+void				read_intensity(t_scene *sc);
+void				read_o_light(t_scene *sc); //temporary
 
 void				validation(t_scene *sc);
 void				parse_fig(t_scene *sc);
