@@ -109,6 +109,18 @@ void	normal_plane(t_scene *sc)
 	sc->n.x = sc->n.x / sc->n.length;
 	sc->n.y = sc->n.y / sc->n.length;
 	sc->n.z = sc->n.z / sc->n.length;
+	if (sc->figure[sc->closfig].o.y > sc->cam.o.y && sc->n.y == 1)
+		sc->n.y *= -1;
+	if (sc->figure[sc->closfig].o.y < sc->cam.o.y && sc->n.y == -1)
+		sc->n.y *= -1;
+	if (sc->figure[sc->closfig].o.x > sc->cam.o.x && sc->n.x == 1)
+		sc->n.x *= -1;
+	if (sc->figure[sc->closfig].o.x < sc->cam.o.x && sc->n.x == -1)
+		sc->n.x *= -1;
+	if (sc->figure[sc->closfig].o.z > sc->cam.o.z && sc->n.z == 1)
+		sc->n.z *= -1;
+	if (sc->figure[sc->closfig].o.z < sc->cam.o.z && sc->n.z == -1)
+		sc->n.z *= -1;
 }
 
 void	normal_cone(t_scene *sc)
