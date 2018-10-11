@@ -86,3 +86,31 @@ void	read_o_light(t_scene *sc) // temporary before I imlement multy_point light
 	sc->p_l.o.z = ft_atoi(sc->pa.f_buff);
 	ft_strdel(&sc->pa.f_buff);
 }
+
+void	read_a_figure(t_scene *sc)
+{
+	if ((sc->pa.index = ft_indexof(sc->pa.buff, "ax=", 0, 0)) == -1)
+		errors(3);
+	sc->pa.index2 = ft_strnfind(sc->pa.buff, ';', sc->pa.index);
+	sc->pa.f_buff = ft_strnsub(sc->pa.buff, sc->pa.index + 3, sc->pa.index2);
+	if (ft_isnumber(sc->pa.f_buff) == 0)
+			errors(3);
+	sc->figure[sc->i].a.x = (float)ft_atoi(sc->pa.f_buff) * 0.0174532925;
+	ft_strdel(&sc->pa.f_buff);
+	if ((sc->pa.index = ft_indexof(sc->pa.buff, "ay=", 0, 0)) == -1)
+		errors(3);
+	sc->pa.index2 = ft_strnfind(sc->pa.buff, ';', sc->pa.index);
+	sc->pa.f_buff = ft_strnsub(sc->pa.buff, sc->pa.index + 3, sc->pa.index2);
+	if (ft_isnumber(sc->pa.f_buff) == 0)
+			errors(3);
+	sc->figure[sc->i].a.y = (float)ft_atoi(sc->pa.f_buff) * 0.0174532925;
+	ft_strdel(&sc->pa.f_buff);
+	if ((sc->pa.index = ft_indexof(sc->pa.buff, "az=", 0, 0)) == -1)
+		errors(3);
+	sc->pa.index2 = ft_strnfind(sc->pa.buff, ';', sc->pa.index);
+	sc->pa.f_buff = ft_strnsub(sc->pa.buff, sc->pa.index + 3, sc->pa.index2);
+	if (ft_isnumber(sc->pa.f_buff) == 0)
+			errors(3);
+	sc->figure[sc->i].a.z = (float)ft_atoi(sc->pa.f_buff) * 0.0174532925;
+	ft_strdel(&sc->pa.f_buff);
+}

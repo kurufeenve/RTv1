@@ -43,6 +43,7 @@ void	read_plane(t_scene *sc)
 	sc->figure[sc->i].type = sc->pa.type;
 	read_o_vector(sc);
 	read_n_vector(sc);
+	read_a_figure(sc);
 	read_color(sc);
 }
 
@@ -52,6 +53,7 @@ void	read_cylinder(t_scene *sc)
 	read_radius(sc);
 	read_o_vector(sc);
 	read_n_vector(sc);
+	read_a_figure(sc);
 	read_color(sc);
 }
 
@@ -61,5 +63,6 @@ void	read_cone(t_scene *sc)
 	read_angle(sc);
 	read_o_vector(sc);
 	read_n_vector(sc);
+	read_a_figure(sc);
 	read_color(sc);
 }

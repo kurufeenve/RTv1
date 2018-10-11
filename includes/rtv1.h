@@ -59,6 +59,7 @@ typedef struct		s_figure
 	float			k;
 	t_vector		o;
 	t_vector		n;
+	t_vector		a;
 	t_color			color;
 }					t_figure;
 
@@ -132,6 +133,7 @@ void				read_radius(t_scene *sc);
 void				read_angle(t_scene *sc);
 void				read_o_vector(t_scene *sc);
 void				read_n_vector(t_scene *sc);
+void				read_a_figure(t_scene *sc);
 void				read_color(t_scene *sc);
 void				read_intensity(t_scene *sc);
 void				read_o_light(t_scene *sc); //temporary

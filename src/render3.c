@@ -87,3 +87,22 @@ void	intersection(t_scene *sc)
 		sc->color.color = 0x000000;
 	sc->m++;
 }
+
+void	figure_rotation(t_scene *sc)
+{
+	float	tmpx;
+	float	tmpy;
+	float	tmpz;
+
+	tmpx = sc->figure[sc->closfig].n.x;
+	tmpy = sc->figure[sc->closfig].n.y;
+	tmpz = sc->figure[sc->closfig].n.z;
+	sc->figure[sc->closfig].n.x = tmpx * cos(sc->figure[sc->closfig].a.y) *
+	cos(sc->figure[sc->closfig].a.z) + tmpz * sin(sc->figure[sc->closfig].a.y) - tmpy * cos(sc->figure[sc->closfig].a.y) * sin(sc->figure[sc->closfig].a.z);
+	sc->figure[sc->closfig].n.y = -tmpz * cos(sc->figure[sc->closfig].a.y) * sin(sc->figure[sc->closfig].a.x) + tmpx *
+	(cos(sc->figure[sc->closfig].a.z) * sin(sc->figure[sc->closfig].a.x) * sin(sc->figure[sc->closfig].a.y) + cos(sc->figure[sc->closfig].a.x) * sin(sc->figure[sc->closfig].a.z)) + tmpy *
+	(cos(sc->figure[sc->closfig].a.x) * cos(sc->figure[sc->closfig].a.z) - sin(sc->figure[sc->closfig].a.x) * sin(sc->figure[sc->closfig].a.y) * sin(sc->figure[sc->closfig].a.z));
+	sc->figure[sc->closfig].n.z = tmpz * cos(sc->figure[sc->closfig].a.x) * cos(sc->figure[sc->closfig].a.y) + tmpx * (sin(sc->figure[sc->closfig].a.x) *
+	sin(sc->figure[sc->closfig].a.z) - cos(sc->figure[sc->closfig].a.x) * cos(sc->figure[sc->closfig].a.z) * sin(sc->figure[sc->closfig].a.y)) + tmpy * (cos(sc->figure[sc->closfig].a.z) *
+	sin(sc->figure[sc->closfig].a.x) + cos(sc->figure[sc->closfig].a.x) * sin(sc->figure[sc->closfig].a.y) * sin(sc->figure[sc->closfig].a.z));
+}
