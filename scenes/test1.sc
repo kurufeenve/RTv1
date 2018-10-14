@@ -1,9 +1,15 @@
-type = 0;
+type = 1;
 	radius = 20;
 	ox = 0;
 	oy = 0;
 	oz = 0;
-	color = 0xffffff;
+	nx = 0;
+	ny = -1;
+	nz = 0;
+	ax = 0;
+	ay = 0;
+	az = 0;
+	color = 0xFF0000;
 type = 4;
 	ox = 100;
 	oy = 0;

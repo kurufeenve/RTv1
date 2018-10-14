@@ -121,6 +121,20 @@ void	errors(int n)
 		ft_putstr("syntax error\n");
 	else if (n == 4)
 		ft_putstr("Wrong type\n");
+	else if (n == 5)
+		ft_putstr("Radius error\n");
+	else if (n == 6)
+		ft_putstr("Angle error\n");
+	else if (n == 7)
+		ft_putstr("Placement error\n");
+	else if (n == 8)
+		ft_putstr("Normal error\n");
+	else if (n == 9)
+		ft_putstr("Color error\n");
+	else if (n == 10)
+		ft_putstr("Light error\n");
+	else if (n == 11)
+		ft_putstr("Camera type\n");
 	system("leaks RTv1");
 	exit(0);
 }

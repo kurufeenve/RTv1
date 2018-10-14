@@ -29,7 +29,7 @@ void	read_figures(t_scene *sc)
 		read_camera(sc);
 		read_a_camera(sc);
 	}
-	else if (sc->pa.type < 0 && sc->pa.type > 5)
+	else if (sc->pa.type < 0 || sc->pa.type > 5)
 		errors(4);
 }
 
