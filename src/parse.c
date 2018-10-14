@@ -37,7 +37,6 @@ void	read_scene(t_scene *sc)
 		sc->pa.str = ft_strjoin2(sc->pa.str, sc->pa.line);
 	}
 	ft_delwhitesp(&sc->pa.str);
-	//printf("sc->pa.str = %s\n", sc->pa.str);
 }
 
 void	validation(t_scene *sc)
@@ -57,14 +56,15 @@ void	count_figures(t_scene *sc)
 {
 	while (1)
 	{
-		if ((sc->pa.index = ft_indexof(sc->pa.str, "type=", sc->pa.index, 0)) == -1)
+		if ((sc->pa.index = ft_indexof(sc->pa.str, "type=",
+		sc->pa.index, 0)) == -1)
 			break ;
 		sc->pa.index2 = ft_strnfind(sc->pa.str, ';', sc->pa.index);
 		sc->pa.buff = ft_strnsub(sc->pa.str, sc->pa.index + 5, sc->pa.index2);
 		if (ft_isnumber(sc->pa.buff) == 0)
 			errors(3);
 		sc->pa.type = ft_atoi(sc->pa.buff);
-		if (sc->pa.type >= 0 && sc->pa.type <=3)
+		if (sc->pa.type >= 0 && sc->pa.type <= 3)
 			sc->pa.nof++;
 		ft_strdel(&sc->pa.buff);
 		sc->pa.index++;
@@ -80,7 +80,8 @@ void	parse_fig(t_scene *sc)
 	count_figures(sc);
 	while (sc->pa.boo > 0)
 	{
-		if ((sc->pa.index = ft_indexof(sc->pa.str, "type=", sc->pa.prev_type, 0)) == -1)
+		if ((sc->pa.index = ft_indexof(sc->pa.str, "type=", sc->pa.prev_type,
+		0)) == -1)
 			break ;
 		sc->pa.index2 = ft_strnfind(sc->pa.str, ';', sc->pa.index);
 		sc->pa.buff = ft_strnsub(sc->pa.str, sc->pa.index + 5, sc->pa.index2);
@@ -94,6 +95,6 @@ void	parse_fig(t_scene *sc)
 		read_figures(sc);
 		ft_strdel(&sc->pa.buff);
 		sc->i++;
-		sc->pa.prev_type++; // might not need it in future
+		sc->pa.prev_type++;
 	}
 }

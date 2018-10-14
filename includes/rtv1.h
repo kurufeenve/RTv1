@@ -120,6 +120,8 @@ typedef struct		s_scene
 */
 
 void				ft_parse(t_scene *sc);
+void				validation(t_scene *sc);
+void				parse_fig(t_scene *sc);
 void				read_scene(t_scene *sc);
 void				read_figures(t_scene *sc);
 void				count_figures(t_scene *sc);
@@ -134,43 +136,55 @@ void				read_angle(t_scene *sc);
 void				read_o_vector(t_scene *sc);
 void				read_n_vector(t_scene *sc);
 void				read_a_figure(t_scene *sc);
+void				figure_rotation(t_vector *n, t_vector a);
 void				read_color(t_scene *sc);
 void				read_intensity(t_scene *sc);
-void				read_o_light(t_scene *sc); //temporary
+void				read_o_light(t_scene *sc);
+void				read_a_camera(t_scene *sc);
+void				normalisation(t_vector *v);
 
-void				validation(t_scene *sc);
-void				parse_fig(t_scene *sc);
-void				struct_init(t_scene *sc);
-void				render(t_scene *sc, t_sdl *s);
+/*
+**SDL
+*/
+
 void				putpixel(t_sdl *s, int x, int y, uint32_t pixel);
 void				canvtoview(t_scene *sc);
-void				intersect_sph(t_scene *sc);
-void				traceray(t_scene *sc);
-void				lighting(t_scene *sc);
+void				key_hook(t_sdl *s, t_scene *sc);
+void				ft_sdl_init(t_sdl *s, t_scene *sc);
+
+/*
+**Camera
+*/
+
 void				camera_rotation(t_vector *n, t_vector ro);
 void				camera_move_x(t_sdl *s, t_scene *sc);
 void				camera_move_y(t_sdl *s, t_scene *sc);
 void				camera_move_z(t_sdl *s, t_scene *sc);
 void				camera_rotate(t_sdl *s, t_scene *sc);
 void				camera_rotate_z(t_sdl *s, t_scene *sc);
-void				key_hook(t_sdl *s, t_scene *sc);
-void				ft_sdl_init(t_sdl *s, t_scene *sc);
-void				sphere(t_scene *sc);
-void				param(t_scene *sc);
-void				which_one(t_scene *sc);
-void				light(t_scene *sc);
-void				plane(t_scene *sc);
+
+/*
+**Render
+*/
+
+void				intersect_sph(t_scene *sc);
+void				traceray(t_scene *sc);
+void				lighting(t_scene *sc);
 void				intersect_cyl(t_scene *sc);
 void				intersect_plane(t_scene *sc);
 void				intersect_cone(t_scene *sc);
-int					read_data(t_scene *sc);
-void				cylinder(t_scene *sc);
 void				intersection(t_scene *sc);
 void				normal_sph(t_scene *sc);
 void				normal_plane(t_scene *sc);
 void				normal_cone(t_scene *sc);
 void				normal_cyl(t_scene *sc);
-void				cone(t_scene *sc);
+void				render(t_scene *sc, t_sdl *s);
+
+/*
+**initialisation and error management
+*/
+
 void				errors(int	n);
+void				struct_init(t_scene *sc);
 
 #endif

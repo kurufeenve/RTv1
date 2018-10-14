@@ -104,7 +104,7 @@ void	normal_plane(t_scene *sc)
 	sc->n.z = sc->figure[sc->closfig].n.z;
 	sc->n.length = sqrt(sc->n.x * sc->n.x + sc->n.y * sc->n.y + sc->n.z *
 	sc->n.z);
-	if (sc->n.length != 0)
+	if (sc->n.length == 0)
 		sc->n.length = 1;
 	sc->n.x = sc->n.x / sc->n.length;
 	sc->n.y = sc->n.y / sc->n.length;

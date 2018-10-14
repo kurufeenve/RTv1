@@ -25,7 +25,10 @@ void	read_figures(t_scene *sc)
 	else if (sc->pa.type == 4)
 		read_light(sc);
 	else if (sc->pa.type == 5)
+	{
 		read_camera(sc);
+		read_a_camera(sc);
+	}
 	else if (sc->pa.type < 0 && sc->pa.type > 5)
 		errors(4);
 }
@@ -44,6 +47,7 @@ void	read_plane(t_scene *sc)
 	read_o_vector(sc);
 	read_n_vector(sc);
 	read_a_figure(sc);
+	figure_rotation(&sc->figure[sc->i].n, sc->figure[sc->i].a);
 	read_color(sc);
 }
 
@@ -54,6 +58,7 @@ void	read_cylinder(t_scene *sc)
 	read_o_vector(sc);
 	read_n_vector(sc);
 	read_a_figure(sc);
+	figure_rotation(&sc->figure[sc->i].n, sc->figure[sc->i].a);
 	read_color(sc);
 }
 
@@ -64,5 +69,6 @@ void	read_cone(t_scene *sc)
 	read_o_vector(sc);
 	read_n_vector(sc);
 	read_a_figure(sc);
+	figure_rotation(&sc->figure[sc->i].n, sc->figure[sc->i].a);
 	read_color(sc);
 }
