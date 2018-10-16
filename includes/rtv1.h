@@ -142,6 +142,7 @@ void				read_intensity(t_scene *sc);
 void				read_o_light(t_scene *sc);
 void				read_a_camera(t_scene *sc);
 void				normalisation(t_vector *v);
+void				placement_check(t_vector v);
 
 /*
 **SDL

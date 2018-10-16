@@ -44,17 +44,23 @@ void	read_camera(t_scene *sc)
 		errors(11);
 	sc->cam.o.z = ft_atoi(sc->pa.f_buff);
 	ft_strdel(&sc->pa.f_buff);
+	placement_check(sc->cam.o);
 }
 
 void	read_intensity(t_scene *sc)
 {
 	if ((sc->pa.index = ft_indexof(sc->pa.buff, "intensity=", 0, 0)) == -1)
-		errors(3);
+		errors(10);
 	sc->pa.index2 = ft_strnfind(sc->pa.buff, ';', sc->pa.index);
 	sc->pa.f_buff = ft_strnsub(sc->pa.buff, sc->pa.index + 10, sc->pa.index2);
 	if (ft_isnumber(sc->pa.f_buff) == 0)
-		errors(3);
-	sc->p_l.intensity = (float)ft_atoi(sc->pa.f_buff) / 100.;
+		errors(10);
+	sc->p_l.intensity = (float)ft_atoi(sc->pa.f_buff);
+	if (sc->p_l.intensity < 0)
+		sc->p_l.intensity *= -1;
+	sc->p_l.intensity /= 100.;
+	if (sc->p_l.intensity > 0.95f)
+		sc->p_l.intensity = 0.95f;
 	ft_strdel(&sc->pa.f_buff);
 }
 
@@ -84,6 +90,7 @@ void	read_o_light(t_scene *sc)
 		errors(10);
 	sc->p_l.o.z = ft_atoi(sc->pa.f_buff);
 	ft_strdel(&sc->pa.f_buff);
+	placement_check(sc->p_l.o);
 }
 
 void	read_a_figure(t_scene *sc)

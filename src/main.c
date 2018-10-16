@@ -27,7 +27,6 @@ int		main(int argc, char **argv)
 	SDL_UpdateWindowSurface(s.win);
 	while (!s.quit)
 		key_hook(&s, &sc);
-	system("leaks RTv1");
 	return (0);
 }
 
@@ -90,7 +89,6 @@ void	ft_sdl_init(t_sdl *s, t_scene *sc)
 		ft_putstr("Failed to initialise EVERYTHING module.\n");
 		if ((s->error = (char *)SDL_GetError()))
 			ft_putstr(s->error);
-		system("leaks RTv1");
 		exit(0);
 	}
 	else
@@ -102,7 +100,6 @@ void	ft_sdl_init(t_sdl *s, t_scene *sc)
 	{
 		if ((s->error = (char *)SDL_GetError()))
 			ft_putstr(s->error);
-		system("leaks RTv1");
 		exit(0);
 	}
 	s->surface = SDL_GetWindowSurface(s->win);
@@ -132,9 +129,8 @@ void	errors(int n)
 	else if (n == 9)
 		ft_putstr("Color error\n");
 	else if (n == 10)
-		ft_putstr("Light error\n");
+		ft_putstr("Light error (type 4)\n");
 	else if (n == 11)
-		ft_putstr("Camera type\n");
-	system("leaks RTv1");
+		ft_putstr("Camera type (type 5)\n");
 	exit(0);
 }

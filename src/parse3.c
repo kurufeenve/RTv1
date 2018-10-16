@@ -38,6 +38,7 @@ void	read_o_vector(t_scene *sc)
 		errors(7);
 	sc->figure[sc->i].o.z = ft_atoi(sc->pa.f_buff);
 	ft_strdel(&sc->pa.f_buff);
+	placement_check(sc->figure[sc->i].o);
 }
 
 void	read_n_vector(t_scene *sc)

@@ -68,3 +68,15 @@ void	read_a_camera(t_scene *sc)
 	sc->cam.ro.z = (float)ft_atoi(sc->pa.f_buff) * (float)0.0174532925;
 	ft_strdel(&sc->pa.f_buff);
 }
+
+void	placement_check(t_vector v)
+{
+	if ((v.x > -10000 && v.x < 10000) && (v.y > -10000 && v.y < 10000) &&
+	(v.z > -10000 && v.z < 10000))
+		return ;
+	else
+	{
+		ft_putstr("Placement error. Value exceeded 10000.\n");
+		exit(0);
+	}
+}
