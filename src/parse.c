@@ -22,18 +22,22 @@ void	ft_parse(t_scene *sc)
 void	read_scene(t_scene *sc)
 {
 	int		t;
+	int		initial_check;
 	char	*buff;
 
 	buff = ft_strchr(sc->pa.filename, 46);
 	if (buff == NULL || ft_strcmp(buff, ".sc") != 0)
 		errors(1);
-	sc->pa.fd = open(sc->pa.filename, O_RDONLY);
+	if ((sc->pa.fd = open(sc->pa.filename, O_RDONLY)) < 1)
+		ft_putstr("Opening file error.\n");
 	t = 1;
+	initial_check = 0;
 	while (t > 0)
 	{
 		t = get_next_line(sc->pa.fd, &sc->pa.line);
-		if (t < 0)
+		if (t < 0 || (t == 0 && initial_check == 0))
 			errors(2);
+		initial_check = 1;
 		sc->pa.str = ft_strjoin2(sc->pa.str, sc->pa.line);
 	}
 	ft_delwhitesp(&sc->pa.str);
@@ -69,6 +73,8 @@ void	count_figures(t_scene *sc)
 		ft_strdel(&sc->pa.buff);
 		sc->pa.index++;
 	}
+	if (sc->pa.nof == 0)
+		ft_putstr("There are no available figures\n");
 	sc->figure = (t_figure *)malloc(sizeof(t_figure) * sc->pa.nof);
 	sc->pa.index = 0;
 	sc->pa.index2 = 0;
