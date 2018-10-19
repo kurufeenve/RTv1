@@ -25,7 +25,7 @@ void	read_scene(t_scene *sc)
 	char	*buff;
 
 	buff = ft_strchr(sc->pa.filename, 46);
-	if (ft_strcmp(buff, ".sc") != 0)
+	if (buff == NULL || ft_strcmp(buff, ".sc") != 0)
 		errors(1);
 	sc->pa.fd = open(sc->pa.filename, O_RDONLY);
 	t = 1;
