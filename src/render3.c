@@ -16,9 +16,14 @@ void	normal_cyl(t_scene *sc)
 {
 	sc->mm = (sc->dd.x * sc->figure[sc->closfig].n.x +
 	sc->dd.y * sc->figure[sc->closfig].n.y + sc->dd.z *
-	sc->figure[sc->closfig].n.z) * sc->clost + (sc->oc.x *
-	sc->figure[sc->closfig].n.x + sc->oc.y * sc->figure[sc->closfig].n.y +
-	sc->oc.z * sc->figure[sc->closfig].n.z);
+	sc->figure[sc->closfig].n.z) * sc->clost + (sc->figure[sc->closfig].oc.x *
+	sc->figure[sc->closfig].n.x + sc->figure[sc->closfig].oc.y * sc->figure[sc->closfig].n.y +
+	sc->figure[sc->closfig].oc.z * sc->figure[sc->closfig].n.z);
+	if (sc->i == -250 && sc->j == 0)
+		printf("sc->dd.x = %f, sc->dd.y = %f, sc->dd.z = %f, sc->figure[sc->closfig].n.x = %f,\
+sc->figure[sc->closfig].n.y = %f, sc->figure[sc->closfig].n.z = %f, sc->clost = %f,\nsc->figure[sc->closfig].oc.x = %f,\
+sc->figure[sc->closfig].oc.y = %f, sc->figure[sc->closfig].oc.z = %f\n\n", sc->dd.x, sc->dd.y, sc->dd.z, sc->figure[sc->closfig].n.x,
+sc->figure[sc->closfig].n.y, sc->figure[sc->closfig].n.z, sc->clost, sc->figure[sc->closfig].oc.x, sc->figure[sc->closfig].oc.y, sc->figure[sc->closfig].oc.z);
 	sc->n.x = sc->p.x - sc->figure[sc->closfig].o.x -
 	(sc->figure[sc->closfig].n.x * sc->mm);
 	sc->n.y = sc->p.y - sc->figure[sc->closfig].o.y -
@@ -27,11 +32,16 @@ void	normal_cyl(t_scene *sc)
 	(sc->figure[sc->closfig].n.z * sc->mm);
 	sc->n.length = sqrt(sc->n.x * sc->n.x + sc->n.y * sc->n.y + sc->n.z *
 	sc->n.z);
-	if (sc->n.length != 0)
+	// if (sc->i == -250 && sc->j == 0)
+	// 	printf("sc->p.x = %f, sc->p.y = %f, sc->p.z = %f\n", sc->p.x, sc->p.y, sc->p.z);
+	if (sc->n.length == 0)
 		sc->n.length = 1;
 	sc->n.x = sc->n.x / sc->n.length;
 	sc->n.y = sc->n.y / sc->n.length;
 	sc->n.z = sc->n.z / sc->n.length;
+	if (sc->i == -250 && sc->j == 0)
+		printf("sc->mm = %f, sc->n.x = %f, sc->n.y = %f, sc->n.z = %f\n",
+		sc->mm, sc->n.x, sc->n.y, sc->n.z);
 }
 
 void	normal_sph(t_scene *sc)
@@ -41,7 +51,7 @@ void	normal_sph(t_scene *sc)
 	sc->n.z = sc->p.z - sc->figure[sc->closfig].o.z;
 	sc->n.length = sqrt(sc->n.x * sc->n.x + sc->n.y * sc->n.y +
 	sc->n.z * sc->n.z);
-	if (sc->n.length != 0)
+	if (sc->n.length == 0)
 		sc->n.length = 1;
 	sc->n.x = sc->n.x / sc->n.length;
 	sc->n.y = sc->n.y / sc->n.length;
@@ -85,5 +95,9 @@ void	intersection(t_scene *sc)
 		sc->color.color = sc->figure[sc->closfig].color.color;
 	if (sc->closfig == -1)
 		sc->color.color = 0x000000;
-	sc->m++;
 }
+
+// void	intersection_light(t_scene *sc)
+// {
+
+// }

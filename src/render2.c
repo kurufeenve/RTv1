@@ -14,21 +14,27 @@
 
 void	intersect_cyl(t_scene *sc)
 {
+	// if (sc->m == 0 && sc->i == -250 && sc->j == 0)
+	// 	printf("sc->figure[sc->m].n.x = %f, sc->figure[sc->m].n.y = %f, sc->figure[sc->m].n.z = %f\n",
+	// 	sc->figure[sc->m].n.x, sc->figure[sc->m].n.y, sc->figure[sc->m].n.z);
 	sc->k1 = (sc->dd.x * sc->dd.x + sc->dd.y * sc->dd.y + sc->dd.z * sc->dd.z)
 	- ((sc->dd.x * sc->figure[sc->m].n.x + sc->dd.y * sc->figure[sc->m].n.y +
 	sc->dd.z * sc->figure[sc->m].n.z) * (sc->dd.x * sc->figure[sc->m].n.x +
 	sc->dd.y * sc->figure[sc->m].n.y + sc->dd.z * sc->figure[sc->m].n.z));
-	sc->k2 = 2 * ((sc->dd.x * sc->oc.x + sc->dd.y * sc->oc.y + sc->dd.z *
-	sc->oc.z) - ((sc->dd.x * sc->figure[sc->m].n.x + sc->dd.y *
-	sc->figure[sc->m].n.y + sc->dd.z * sc->figure[sc->m].n.z) * (sc->oc.x *
-	sc->figure[sc->m].n.x + sc->oc.y * sc->figure[sc->m].n.y + sc->oc.z *
+	
+	sc->k2 = 2 * ((sc->dd.x * sc->figure[sc->m].oc.x + sc->dd.y * sc->figure[sc->m].oc.y + sc->dd.z *
+	sc->figure[sc->m].oc.z) - ((sc->dd.x * sc->figure[sc->m].n.x + sc->dd.y *
+	sc->figure[sc->m].n.y + sc->dd.z * sc->figure[sc->m].n.z) * (sc->figure[sc->m].oc.x *
+	sc->figure[sc->m].n.x + sc->figure[sc->m].oc.y * sc->figure[sc->m].n.y + sc->figure[sc->m].oc.z *
 	sc->figure[sc->m].n.z)));
-	sc->k3 = (sc->oc.x * sc->oc.x + sc->oc.y * sc->oc.y + sc->oc.z *
-	sc->oc.z) - ((sc->oc.x * sc->figure[sc->m].n.x + sc->oc.y *
-	sc->figure[sc->m].n.y + sc->oc.z * sc->figure[sc->m].n.z) * (sc->oc.x *
-	sc->figure[sc->m].n.x + sc->oc.y * sc->figure[sc->m].n.y + sc->oc.z *
+	sc->k3 = (sc->figure[sc->m].oc.x * sc->figure[sc->m].oc.x + sc->figure[sc->m].oc.y * sc->figure[sc->m].oc.y + sc->figure[sc->m].oc.z *
+	sc->figure[sc->m].oc.z) - ((sc->figure[sc->m].oc.x * sc->figure[sc->m].n.x + sc->figure[sc->m].oc.y *
+	sc->figure[sc->m].n.y + sc->figure[sc->m].oc.z * sc->figure[sc->m].n.z) * (sc->figure[sc->m].oc.x *
+	sc->figure[sc->m].n.x + sc->figure[sc->m].oc.y * sc->figure[sc->m].n.y + sc->figure[sc->m].oc.z *
 	sc->figure[sc->m].n.z)) - sc->figure[sc->m].radius *
 	sc->figure[sc->m].radius;
+	// if (sc->m == 0 && sc->i == -250 && sc->j == 0)
+	// 	printf("sc->k1 = %f, sc->k2 = %f, sc->k3 = %f\n", sc->k1, sc->k2, sc->k3);
 	sc->discr = sc->k2 * sc->k2 - 4 * sc->k1 * sc->k3;
 	if (sc->discr < 0)
 	{
@@ -48,16 +54,16 @@ void	intersect_cone(t_scene *sc)
 	sc->figure[sc->m].n.x + sc->dd.y * sc->figure[sc->m].n.y +
 	sc->dd.z * sc->figure[sc->m].n.z) * (sc->dd.x * sc->figure[sc->m].n.x +
 	sc->dd.y * sc->figure[sc->m].n.y + sc->dd.z * sc->figure[sc->m].n.z);
-	sc->k2 = 2 * ((sc->dd.x * sc->oc.x + sc->dd.y * sc->oc.y + sc->dd.z *
-	sc->oc.z) - (1 + sc->figure[sc->m].k * sc->figure[sc->m].k) * ((sc->dd.x *
+	sc->k2 = 2 * ((sc->dd.x * sc->figure[sc->m].oc.x + sc->dd.y * sc->figure[sc->m].oc.y + sc->dd.z *
+	sc->figure[sc->m].oc.z) - (1 + sc->figure[sc->m].k * sc->figure[sc->m].k) * ((sc->dd.x *
 	sc->figure[sc->m].n.x + sc->dd.y * sc->figure[sc->m].n.y + sc->dd.z *
-	sc->figure[sc->m].n.z) * (sc->oc.x * sc->figure[sc->m].n.x + sc->oc.y *
-	sc->figure[sc->m].n.y + sc->oc.z * sc->figure[sc->m].n.z)));
-	sc->k3 = (sc->oc.x * sc->oc.x + sc->oc.y * sc->oc.y + sc->oc.z *
-	sc->oc.z) - (1 + sc->figure[sc->m].k * sc->figure[sc->m].k) * ((sc->oc.x *
-	sc->figure[sc->m].n.x + sc->oc.y * sc->figure[sc->m].n.y + sc->oc.z *
-	sc->figure[sc->m].n.z) * (sc->oc.x * sc->figure[sc->m].n.x + sc->oc.y *
-	sc->figure[sc->m].n.y + sc->oc.z * sc->figure[sc->m].n.z));
+	sc->figure[sc->m].n.z) * (sc->figure[sc->m].oc.x * sc->figure[sc->m].n.x + sc->figure[sc->m].oc.y *
+	sc->figure[sc->m].n.y + sc->figure[sc->m].oc.z * sc->figure[sc->m].n.z)));
+	sc->k3 = (sc->figure[sc->m].oc.x * sc->figure[sc->m].oc.x + sc->figure[sc->m].oc.y * sc->figure[sc->m].oc.y + sc->figure[sc->m].oc.z *
+	sc->figure[sc->m].oc.z) - (1 + sc->figure[sc->m].k * sc->figure[sc->m].k) * ((sc->figure[sc->m].oc.x *
+	sc->figure[sc->m].n.x + sc->figure[sc->m].oc.y * sc->figure[sc->m].n.y + sc->figure[sc->m].oc.z *
+	sc->figure[sc->m].n.z) * (sc->figure[sc->m].oc.x * sc->figure[sc->m].n.x + sc->figure[sc->m].oc.y *
+	sc->figure[sc->m].n.y + sc->figure[sc->m].oc.z * sc->figure[sc->m].n.z));
 	sc->discr = sc->k2 * sc->k2 - 4 * sc->k1 * sc->k3;
 	if (sc->discr < 0)
 	{
@@ -76,12 +82,18 @@ void	traceray(t_scene *sc)
 	sc->clost = sc->eov;
 	while (sc->m < sc->pa.nof)
 	{
-		ft_vec_sub(sc->cam.o, sc->figure[sc->m].o, &sc->oc);
+		ft_vec_sub(sc->cam.o, sc->figure[sc->m].o, &sc->figure[sc->m].oc);
 		intersection(sc);
+		sc->m++;
 	}
+	// if (sc->i == -250 && sc->j == 0)
+	// 	printf("sc->clost = %f, sc->dd.x = %f, sc->dd.y = %f, sc->dd.z = %f\n",
+		// sc->clost, sc->dd.x, sc->dd.y, sc->dd.z);
 	sc->p.x = sc->cam.o.x + sc->clost * sc->dd.x;
 	sc->p.y = sc->cam.o.y + sc->clost * sc->dd.y;
 	sc->p.z = sc->cam.o.z + sc->clost * sc->dd.z;
+	// if (sc->i == -250 && sc->j == 0)
+	// 	printf("sc->p.x = %f, sc->p.y = %f, sc->p.z = %f\n", sc->p.x, sc->p.y, sc->p.z);
 	if (sc->figure[sc->closfig].type == 0)
 		normal_sph(sc);
 	if (sc->figure[sc->closfig].type == 3)
@@ -127,9 +139,9 @@ void	normal_cone(t_scene *sc)
 {
 	sc->mm = (sc->dd.x * sc->figure[sc->closfig].n.x +
 	sc->dd.y * sc->figure[sc->closfig].n.y + sc->dd.z *
-	sc->figure[sc->closfig].n.z) * sc->clost + (sc->oc.x *
-	sc->figure[sc->closfig].n.x + sc->oc.y * sc->figure[sc->closfig].n.y +
-	sc->oc.z * sc->figure[sc->closfig].n.z);
+	sc->figure[sc->closfig].n.z) * sc->clost + (sc->figure[sc->closfig].oc.x *
+	sc->figure[sc->closfig].n.x + sc->figure[sc->closfig].oc.y * sc->figure[sc->closfig].n.y +
+	sc->figure[sc->closfig].oc.z * sc->figure[sc->closfig].n.z);
 	sc->n.x = sc->p.x - sc->figure[sc->closfig].o.x - (1 +
 	sc->figure[sc->closfig].k * sc->figure[sc->closfig].k) *
 	(sc->figure[sc->closfig].n.x * sc->mm);
@@ -141,7 +153,7 @@ void	normal_cone(t_scene *sc)
 	(sc->figure[sc->closfig].n.z * sc->mm);
 	sc->n.length = sqrt(sc->n.x * sc->n.x + sc->n.y * sc->n.y + sc->n.z *
 	sc->n.z);
-	if (sc->n.length != 0)
+	if (sc->n.length == 0)
 		sc->n.length = 1;
 	sc->n.x = sc->n.x / sc->n.length;
 	sc->n.y = sc->n.y / sc->n.length;

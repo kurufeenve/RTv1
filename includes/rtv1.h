@@ -19,8 +19,9 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <stdlib.h>
-# include <stdio.h>
 # include <SDL2/SDL.h>
+
+# include <stdio.h>
 
 typedef struct		s_sdl
 {
@@ -60,6 +61,7 @@ typedef struct		s_figure
 	t_vector		o;
 	t_vector		n;
 	t_vector		a;
+	t_vector		oc;
 	t_color			color;
 }					t_figure;
 
@@ -86,6 +88,7 @@ typedef struct		s_scene
 	int				i;
 	int				j;
 	int				m;
+	int				k;
 	t_camera		cam;
 	t_vector		dd;
 	t_vector		ray;
@@ -180,6 +183,7 @@ void				normal_plane(t_scene *sc);
 void				normal_cone(t_scene *sc);
 void				normal_cyl(t_scene *sc);
 void				render(t_scene *sc, t_sdl *s);
+// void				intersection_light(t_scene *sc);
 
 /*
 **initialisation and error management
