@@ -39,10 +39,6 @@ void	canvtoview(t_scene *sc)
 	sc->dd.y = (float)sc->j * (float)sc->vh / (float)sc->ch;
 	sc->dd.z = (float)sc->d;
 	camera_rotation(&sc->dd, sc->cam.ro);
-// 	if (sc->i == -250 && sc->j == 0)
-// 		printf("sc->vw = %d, sc->cw = %d, sc->vh = %d, sc->ch = %d, sc->dd.x = %f, sc->dd.y = %f,\
-// sc->dd.z = %f\n(float)sc->i * (float)sc->vw / (float)sc->cw = %f\n", sc->vw, sc->cw, sc->vh,
-// sc->ch, sc->dd.x, sc->dd.y, sc->dd.z, (float)sc->i * (float)sc->vw / (float)sc->cw);
 }
 
 void	camera_rotation(t_vector *n, t_vector ro)
@@ -67,9 +63,9 @@ void	camera_rotation(t_vector *n, t_vector ro)
 void	intersect_sph(t_scene *sc)
 {
 	sc->k1 = sc->dd.x * sc->dd.x + sc->dd.y * sc->dd.y + sc->dd.z * sc->dd.z;
-	sc->k2 = 2 * (sc->figure[sc->m].oc.x * sc->dd.x + sc->figure[sc->m].oc.y * sc->dd.y +
-	sc->figure[sc->m].oc.z * sc->dd.z);
-	sc->k3 = sc->figure[sc->m].oc.x * sc->figure[sc->m].oc.x + sc->figure[sc->m].oc.y * sc->figure[sc->m].oc.y + sc->figure[sc->m].oc.z * sc->figure[sc->m].oc.z -
+	sc->k2 = 2 * (sc->oc.x * sc->dd.x + sc->oc.y * sc->dd.y +
+	sc->oc.z * sc->dd.z);
+	sc->k3 = sc->oc.x * sc->oc.x + sc->oc.y * sc->oc.y + sc->oc.z * sc->oc.z -
 	sc->figure[sc->m].radius * sc->figure[sc->m].radius;
 	sc->discr = sc->k2 * sc->k2 - 4 * sc->k1 * sc->k3;
 	if (sc->discr < 0)
@@ -89,8 +85,8 @@ void	intersect_plane(t_scene *sc)
 	buff = (sc->dd.x * sc->figure[sc->m].n.x + sc->dd.y * sc->figure[sc->m].n.y
 	+ sc->dd.z * sc->figure[sc->m].n.z);
 	if (buff != 0)
-		sc->t1 = -(sc->figure[sc->m].oc.x * sc->figure[sc->m].n.x + sc->figure[sc->m].oc.y *
-		sc->figure[sc->m].n.y + sc->figure[sc->m].oc.z * sc->figure[sc->m].n.z) / buff;
+		sc->t1 = -(sc->oc.x * sc->figure[sc->m].n.x + sc->oc.y *
+		sc->figure[sc->m].n.y + sc->oc.z * sc->figure[sc->m].n.z) / buff;
 	else
 		sc->t1 = 0;
 	sc->t2 = sc->t1;

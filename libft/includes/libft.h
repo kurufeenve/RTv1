@@ -33,7 +33,6 @@ typedef struct		s_vector
 	float			y;
 	float			z;
 	double			length;
-
 }					t_vector;
 
 char				*ft_itoa(int n);
@@ -121,5 +120,7 @@ int					ft_indexof(char const *h, char const *n, size_t start,
 	int f);
 char				*ft_strnsub(char const *s, size_t start, size_t end);
 int					ft_atoi_base(char const *str, int base);
+float				vec_length(t_vector);
+float				ft_vec_dot(t_vector v1, t_vector v2);
 
 #endif
