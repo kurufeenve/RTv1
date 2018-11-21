@@ -55,6 +55,7 @@ void	read_cylinder(t_scene *sc)
 {
 	sc->figure[sc->i].type = sc->pa.type;
 	read_radius(sc);
+	read_height(sc);
 	read_o_vector(sc);
 	read_n_vector(sc);
 	read_a_figure(sc);
@@ -66,6 +67,7 @@ void	read_cone(t_scene *sc)
 {
 	sc->figure[sc->i].type = sc->pa.type;
 	read_angle(sc);
+	read_height(sc);
 	read_o_vector(sc);
 	read_n_vector(sc);
 	read_a_figure(sc);

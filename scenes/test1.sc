@@ -1,10 +1,11 @@
 type = 1;
 	radius = 20;
+	height = 100;
 	ox = 0;
-	oy = 0;
+	oy = 50;
 	oz = 0;
 	nx = 0;
-	ny = -1;
+	ny = 1;
 	nz = 0;
 	ax = 0;
 	ay = 0;

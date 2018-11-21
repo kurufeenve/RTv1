@@ -56,8 +56,10 @@ typedef struct		s_figure
 {
 	int				type;
 	int				radius;
+	int				height;    // this is mmax
 	float			angl;
 	float			k;
+	float			m_figure_length;
 	t_vector		o;
 	t_vector		n;
 	t_vector		a;
@@ -135,6 +137,7 @@ void				read_plane(t_scene *sc);
 void				read_light(t_scene *sc);
 void				read_camera(t_scene *sc);
 void				read_radius(t_scene *sc);
+void				read_height(t_scene *sc);
 void				read_angle(t_scene *sc);
 void				read_o_vector(t_scene *sc);
 void				read_n_vector(t_scene *sc);

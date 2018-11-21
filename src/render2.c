@@ -20,13 +20,13 @@ void	intersect_cyl(t_scene *sc)
 	sc->k2 = 2 * (ft_vec_dot(sc->dd, sc->oc) -
 	(ft_vec_dot(sc->dd, sc->figure[sc->m].n) *
 	ft_vec_dot(sc->oc, sc->figure[sc->m].n)));
-	sc->k3 = ft_vec_dot(sc->oc, sc->oc) - (ft_vec_dot(sc->oc, sc->figure[sc->m].n) * (sc->oc.x *
-	sc->figure[sc->m].n.x + sc->oc.y * sc->figure[sc->m].n.y + sc->oc.z *
-	sc->figure[sc->m].n.z)) - sc->figure[sc->m].radius *
+	sc->k3 = ft_vec_dot(sc->oc, sc->oc) -
+	(ft_vec_dot(sc->oc, sc->figure[sc->m].n) *
+	ft_vec_dot(sc->oc, sc->figure[sc->m].n)) - sc->figure[sc->m].radius *
 	sc->figure[sc->m].radius;
 	sc->discr = sc->k2 * sc->k2 - 4 * sc->k1 * sc->k3;
-	if (sc->i == 0 && sc->j == 0)
-		printf("sc->k1 = %f, sc->k2 = %f, sc->k3 = %f\n", sc->k1, sc->k2, sc->k3);
+	// if (sc->i == 0 && sc->j == 0)
+	// 	printf("sc->k1 = %f, sc->k2 = %f, sc->k3 = %f\n", sc->k1, sc->k2, sc->k3);
 	if (sc->discr < 0)
 	{
 		sc->t1 = 0;
@@ -35,6 +35,7 @@ void	intersect_cyl(t_scene *sc)
 	}
 	sc->t1 = (-sc->k2 + sqrtf(sc->discr)) / (2 * sc->k1);
 	sc->t2 = (-sc->k2 - sqrtf(sc->discr)) / (2 * sc->k1);
+	
 }
 
 void	intersect_cone(t_scene *sc)
@@ -89,9 +90,12 @@ void	traceray(t_scene *sc)
 		normal_cyl(sc);
 	if (sc->clost > 1)
 		lighting(sc);
+	ft_vec_sub(sc->p, sc->figure[sc->closfig].o, sc->figure[sc->closfig].m_figure_length);
+	sc->figure[sc->closfig].m_figure_length = ;
 	sc->color.channel[0] *= sc->intensity;
 	sc->color.channel[1] *= sc->intensity;
 	sc->color.channel[2] *= sc->intensity;
+
 }
 
 void	normal_plane(t_scene *sc)
