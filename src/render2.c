@@ -90,8 +90,11 @@ void	traceray(t_scene *sc)
 		normal_cyl(sc);
 	if (sc->clost > 1)
 		lighting(sc);
-	ft_vec_sub(sc->p, sc->figure[sc->closfig].o, sc->figure[sc->closfig].m_figure_length);
-	sc->figure[sc->closfig].m_figure_length = ;
+	ft_vec_sub(sc->p, sc->figure[sc->closfig].o, &sc->figure[sc->closfig].pc);
+	sc->figure[sc->closfig].m_figure_length = ft_vec_dot(sc->figure[sc->closfig].pc,
+	sc->figure[sc->m].n);
+	if (sc->i == 0 && sc->j == -100)
+		printf("sc->p.x = %f, sc->p.y = %f, sc->p.z = %f, m = %f", sc->figure[sc->closfig].m_figure_length);
 	sc->color.channel[0] *= sc->intensity;
 	sc->color.channel[1] *= sc->intensity;
 	sc->color.channel[2] *= sc->intensity;

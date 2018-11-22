@@ -64,6 +64,7 @@ typedef struct		s_figure
 	t_vector		n;
 	t_vector		a;
 	t_vector		oc;
+	t_vector		pc;
 	t_color			color;
 }					t_figure;
 
