@@ -14,6 +14,11 @@
 
 void	intersect_cyl(t_scene *sc)
 {
+	if (sc->i == 0 && sc->j == -100)
+	{
+		printf("V %f, %f, %f\n", sc->figure[sc->m].n.x, sc->figure[sc->m].n.y, sc->figure[sc->m].n.z);
+	}
+	sc->figure[sc->m].close_wall = 10000;
 	sc->k1 = ft_vec_dot(sc->dd, sc->dd) -
 	(ft_vec_dot(sc->dd, sc->figure[sc->m].n) *
 	ft_vec_dot(sc->dd, sc->figure[sc->m].n));
@@ -35,7 +40,42 @@ void	intersect_cyl(t_scene *sc)
 	}
 	sc->t1 = (-sc->k2 + sqrtf(sc->discr)) / (2 * sc->k1);
 	sc->t2 = (-sc->k2 - sqrtf(sc->discr)) / (2 * sc->k1);
-	
+
+	if (sc->t1 > 1 && sc->t1 < sc->figure[sc->m].close_wall)
+	{
+		sc->figure[sc->m].close_wall = sc->t1;
+		sc->figure[sc->m].far_wall = sc->t2;
+	}
+	if (sc->t2 > 1 && sc->t2 < sc->figure[sc->m].close_wall)
+	{
+		sc->figure[sc->m].close_wall = sc->t2;
+		sc->figure[sc->m].far_wall = sc->t1;
+	}
+
+	sc->figure[sc->m].p1.x = sc->cam.o.x + sc->t1 * sc->dd.x;
+	sc->figure[sc->m].p1.y = sc->cam.o.y + sc->t1 * sc->dd.y;
+	sc->figure[sc->m].p1.z = sc->cam.o.z + sc->t1 * sc->dd.z;
+
+	ft_vec_sub(sc->figure[sc->m].p1, sc->figure[sc->m].o, &sc->figure[sc->m].pc);
+	sc->figure[sc->m].m_figure_length = ft_vec_dot(sc->figure[sc->m].pc,
+	sc->figure[sc->m].n);
+
+	if (sc->figure[sc->m].m_figure_length <= 0 || sc->figure[sc->m].m_figure_length >= (float)sc->figure[sc->m].height)
+	{
+		sc->t1 = -1;
+	}
+	sc->figure[sc->m].p2.x = sc->cam.o.x + sc->t2 * sc->dd.x;
+	sc->figure[sc->m].p2.y = sc->cam.o.y + sc->t2 * sc->dd.y;
+	sc->figure[sc->m].p2.z = sc->cam.o.z + sc->t2 * sc->dd.z;
+
+	ft_vec_sub(sc->figure[sc->m].p2, sc->figure[sc->m].o, &sc->figure[sc->m].pc);
+	sc->figure[sc->m].m_figure_length = ft_vec_dot(sc->figure[sc->m].pc,
+	sc->figure[sc->m].n);
+
+	if (sc->figure[sc->m].m_figure_length <= 0 || sc->figure[sc->m].m_figure_length >= (float)sc->figure[sc->m].height)
+	{
+		sc->t2 = -1;
+	}
 }
 
 void	intersect_cone(t_scene *sc)
@@ -76,10 +116,8 @@ void	traceray(t_scene *sc)
 	{
 		ft_vec_sub(sc->cam.o, sc->figure[sc->m].o, &sc->oc);
 		intersection(sc);
+		sc->m++;
 	}
-	sc->p.x = sc->cam.o.x + sc->clost * sc->dd.x;
-	sc->p.y = sc->cam.o.y + sc->clost * sc->dd.y;
-	sc->p.z = sc->cam.o.z + sc->clost * sc->dd.z;
 	if (sc->figure[sc->closfig].type == 0)
 		normal_sph(sc);
 	if (sc->figure[sc->closfig].type == 3)
@@ -90,15 +128,9 @@ void	traceray(t_scene *sc)
 		normal_cyl(sc);
 	if (sc->clost > 1)
 		lighting(sc);
-	ft_vec_sub(sc->p, sc->figure[sc->closfig].o, &sc->figure[sc->closfig].pc);
-	sc->figure[sc->closfig].m_figure_length = ft_vec_dot(sc->figure[sc->closfig].pc,
-	sc->figure[sc->m].n);
-	if (sc->i == 0 && sc->j == -100)
-		printf("sc->p.x = %f, sc->p.y = %f, sc->p.z = %f, m = %f", sc->figure[sc->closfig].m_figure_length);
 	sc->color.channel[0] *= sc->intensity;
 	sc->color.channel[1] *= sc->intensity;
 	sc->color.channel[2] *= sc->intensity;
-
 }
 
 void	normal_plane(t_scene *sc)

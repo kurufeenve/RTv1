@@ -16,7 +16,7 @@ OBJ_DIR = ./obj/
 OBJ = $(addprefix $(OBJ_DIR),$(SRC:.c=.o))
 INC = ./includes/rtv1.h
 NAME = RTv1
-CFLAG = -Werror -Wextra -Wall -O2
+CFLAG = -Werror -Wextra -Wall -O2 -g
 FRAMEWORK =  -framework SDL2
 FRAMEWORK_PATH = -F /Library/Frameworks
 LIBDIR = ./libft

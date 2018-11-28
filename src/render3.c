@@ -85,5 +85,18 @@ void	intersection(t_scene *sc)
 		sc->color.color = sc->figure[sc->closfig].color.color;
 	if (sc->closfig == -1)
 		sc->color.color = 0x000000;
-	sc->m++;
+
+	sc->p.x = sc->cam.o.x + sc->clost * sc->dd.x;
+	sc->p.y = sc->cam.o.y + sc->clost * sc->dd.y;
+	sc->p.z = sc->cam.o.z + sc->clost * sc->dd.z;
+
+	// if (sc->i == 0 && sc->j == -100)
+	// {
+	// 	printf("P %f, %f, %f\n", sc->p.x, sc->p.y, sc->p.z);
+	// 	printf("O %f, %f, %f\n", sc->figure[sc->closfig].o.x, sc->figure[sc->closfig].o.y, sc->figure[sc->closfig].o.z);
+	// 	printf("PC %f, %f, %f\n", sc->figure[sc->closfig].pc.x, sc->figure[sc->closfig].pc.y, sc->figure[sc->closfig].pc.z);
+	// 	printf("V %f, %f, %f\n", sc->figure[sc->closfig].n.x, sc->figure[sc->closfig].n.y, sc->figure[sc->closfig].n.z);
+	// 	printf("m = %f\n", sc->figure[sc->closfig].m_figure_length);
+	// }
+	
 }

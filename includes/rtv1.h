@@ -65,6 +65,10 @@ typedef struct		s_figure
 	t_vector		a;
 	t_vector		oc;
 	t_vector		pc;
+	t_vector		p1;
+	t_vector		p2;
+	float			close_wall;
+	float			far_wall;
 	t_color			color;
 }					t_figure;
 
