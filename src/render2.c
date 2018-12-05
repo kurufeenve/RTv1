@@ -14,7 +14,9 @@
 
 void	intersect_cyl(t_scene *sc)
 {
-	if (sc->i == 0 && sc->j == -100)
+	//float	buff;
+
+	if (sc->i == 0 && sc->j == 0)
 	{
 		printf("V %f, %f, %f\n", sc->figure[sc->m].n.x, sc->figure[sc->m].n.y, sc->figure[sc->m].n.z);
 	}
@@ -41,16 +43,7 @@ void	intersect_cyl(t_scene *sc)
 	sc->t1 = (-sc->k2 + sqrtf(sc->discr)) / (2 * sc->k1);
 	sc->t2 = (-sc->k2 - sqrtf(sc->discr)) / (2 * sc->k1);
 
-	if (sc->t1 > 1 && sc->t1 < sc->figure[sc->m].close_wall)
-	{
-		sc->figure[sc->m].close_wall = sc->t1;
-		sc->figure[sc->m].far_wall = sc->t2;
-	}
-	if (sc->t2 > 1 && sc->t2 < sc->figure[sc->m].close_wall)
-	{
-		sc->figure[sc->m].close_wall = sc->t2;
-		sc->figure[sc->m].far_wall = sc->t1;
-	}
+	// cut the cylinder
 
 	sc->figure[sc->m].p1.x = sc->cam.o.x + sc->t1 * sc->dd.x;
 	sc->figure[sc->m].p1.y = sc->cam.o.y + sc->t1 * sc->dd.y;
@@ -76,6 +69,16 @@ void	intersect_cyl(t_scene *sc)
 	{
 		sc->t2 = -1;
 	}
+
+	// buff = (sc->dd.x * sc->figure[sc->m].n.x + sc->dd.y * sc->figure[sc->m].n.y
+	// + sc->dd.z * sc->figure[sc->m].n.z);
+	// if (buff != 0)
+	// 	sc->t1 = -(sc->oc.x * sc->figure[sc->m].n.x + sc->oc.y *
+	// 	sc->figure[sc->m].n.y + sc->oc.z * sc->figure[sc->m].n.z) / buff;
+	// else
+	// 	sc->t1 = 0;
+	// sc->t2 = sc->t1;
+
 }
 
 void	intersect_cone(t_scene *sc)
@@ -177,7 +180,7 @@ void	normal_cone(t_scene *sc)
 	(sc->figure[sc->closfig].n.z * sc->mm);
 	sc->n.length = sqrt(sc->n.x * sc->n.x + sc->n.y * sc->n.y + sc->n.z *
 	sc->n.z);
-	if (sc->n.length != 0)
+	if (sc->n.length == 0)
 		sc->n.length = 1;
 	sc->n.x = sc->n.x / sc->n.length;
 	sc->n.y = sc->n.y / sc->n.length;

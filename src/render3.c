@@ -27,7 +27,7 @@ void	normal_cyl(t_scene *sc)
 	(sc->figure[sc->closfig].n.z * sc->mm);
 	sc->n.length = sqrt(sc->n.x * sc->n.x + sc->n.y * sc->n.y + sc->n.z *
 	sc->n.z);
-	if (sc->n.length != 0)
+	if (sc->n.length == 0)
 		sc->n.length = 1;
 	sc->n.x = sc->n.x / sc->n.length;
 	sc->n.y = sc->n.y / sc->n.length;
@@ -41,7 +41,7 @@ void	normal_sph(t_scene *sc)
 	sc->n.z = sc->p.z - sc->figure[sc->closfig].o.z;
 	sc->n.length = sqrt(sc->n.x * sc->n.x + sc->n.y * sc->n.y +
 	sc->n.z * sc->n.z);
-	if (sc->n.length != 0)
+	if (sc->n.length == 0)
 		sc->n.length = 1;
 	sc->n.x = sc->n.x / sc->n.length;
 	sc->n.y = sc->n.y / sc->n.length;

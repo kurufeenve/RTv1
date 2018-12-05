@@ -1,1 +1,40 @@
-type=0;radius=50;ox=-40;oy=0;oz=250;color=0xffffff;type=0;radius=50;ox=40;oy=0;oz=250;color=0xffffff;type=3;ox=0;oy=50;oz=200;nx=0;ny=-1;nz=0;color=0xffffff;type=1;radius=20;ox=40;oy=0;oz=250;nx=0;ny=-1;nz=0;color=0xffffff;type=2;angl=30;ox=-40;oy=-50;oz=250;nx=0;ny=-1;nz=0;color=0xffffff;type=4;ox=0;oy=-50;oz=0;i=95;type=5;ox=0;oy=0;oz=0;
+if (sc->t1 > 1 && sc->t1 < sc->figure[sc->m].close_wall)
+	{
+		sc->figure[sc->m].close_wall = sc->t1;
+		sc->figure[sc->m].far_wall = sc->t2;
+	}
+	if (sc->t2 > 1 && sc->t2 < sc->figure[sc->m].close_wall)
+	{
+		sc->figure[sc->m].close_wall = sc->t2;
+		sc->figure[sc->m].far_wall = sc->t1;
+	}
+
+	sc->figure[sc->m].p1.x = sc->cam.o.x + sc->t1 * sc->dd.x;
+	sc->figure[sc->m].p1.y = sc->cam.o.y + sc->t1 * sc->dd.y;
+	sc->figure[sc->m].p1.z = sc->cam.o.z + sc->t1 * sc->dd.z;
+
+	ft_vec_sub(sc->figure[sc->m].p1, sc->figure[sc->m].o, &sc->figure[sc->m].pc);
+	sc->figure[sc->m].m_figure_length = ft_vec_dot(sc->figure[sc->m].pc,
+	sc->figure[sc->m].n);
+
+	if (sc->figure[sc->m].m_figure_length <= 0 || sc->figure[sc->m].m_figure_length >= (float)sc->figure[sc->m].height)
+	{
+		sc->t1 = -1;
+	}
+	sc->figure[sc->m].p2.x = sc->cam.o.x + sc->t2 * sc->dd.x;
+	sc->figure[sc->m].p2.y = sc->cam.o.y + sc->t2 * sc->dd.y;
+	sc->figure[sc->m].p2.z = sc->cam.o.z + sc->t2 * sc->dd.z;
+
+	ft_vec_sub(sc->figure[sc->m].p2, sc->figure[sc->m].o, &sc->figure[sc->m].pc);
+	sc->figure[sc->m].m_figure_length = ft_vec_dot(sc->figure[sc->m].pc,
+	sc->figure[sc->m].n);
+
+	if (sc->figure[sc->m].m_figure_length <= 0 || sc->figure[sc->m].m_figure_length >= (float)sc->figure[sc->m].height)
+	{
+		sc->t2 = -1;
+	}
+	if (sc->figure[sc->m].close_wall == -1 && sc->figure[sc->m].far_wall > 0)
+	{
+		intersect_plane(sc);
+		sc->color.color = sc->figure[sc->m].color.color;
+	}
