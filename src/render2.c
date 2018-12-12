@@ -14,71 +14,37 @@
 
 void	intersect_cyl(t_scene *sc)
 {
-	//float	buff;
+	float	dot_dd_dd = ft_vec_dot(sc->dd, sc->dd);
+	float	dot_dd_oc = ft_vec_dot(sc->dd, sc->oc);
+	float	dot_oc_oc = ft_vec_dot(sc->oc, sc->oc);
+	float	dot_dd_sc_figure_n = ft_vec_dot(sc->dd, sc->figure[sc->m].n);
+	float	dot_oc_sc_figure_n = ft_vec_dot(sc->oc, sc->figure[sc->m].n);
 
-	if (sc->i == 0 && sc->j == 0)
-	{
-		printf("V %f, %f, %f\n", sc->figure[sc->m].n.x, sc->figure[sc->m].n.y, sc->figure[sc->m].n.z);
-	}
-	sc->figure[sc->m].close_wall = 10000;
-	sc->k1 = ft_vec_dot(sc->dd, sc->dd) -
-	(ft_vec_dot(sc->dd, sc->figure[sc->m].n) *
-	ft_vec_dot(sc->dd, sc->figure[sc->m].n));
-	sc->k2 = 2 * (ft_vec_dot(sc->dd, sc->oc) -
-	(ft_vec_dot(sc->dd, sc->figure[sc->m].n) *
-	ft_vec_dot(sc->oc, sc->figure[sc->m].n)));
-	sc->k3 = ft_vec_dot(sc->oc, sc->oc) -
-	(ft_vec_dot(sc->oc, sc->figure[sc->m].n) *
-	ft_vec_dot(sc->oc, sc->figure[sc->m].n)) - sc->figure[sc->m].radius *
+	sc->k1 = dot_dd_dd - (dot_dd_sc_figure_n * dot_dd_sc_figure_n);
+	sc->k2 = 2 * (dot_dd_oc - (dot_dd_sc_figure_n * dot_oc_sc_figure_n));
+	sc->k3 = dot_oc_oc - (dot_oc_sc_figure_n * dot_oc_sc_figure_n) - sc->figure[sc->m].radius *
 	sc->figure[sc->m].radius;
 	sc->discr = sc->k2 * sc->k2 - 4 * sc->k1 * sc->k3;
-	// if (sc->i == 0 && sc->j == 0)
-	// 	printf("sc->k1 = %f, sc->k2 = %f, sc->k3 = %f\n", sc->k1, sc->k2, sc->k3);
 	if (sc->discr < 0)
 	{
 		sc->t1 = 0;
 		sc->t2 = 0;
 		return ;
 	}
+	if (sc->i == 0 && sc->j == 0)
+	{
+		printf("sc->i = %d, sc->j = %d, sc->k2 = %f, sc->discr = %f, sc->k1 = %f, sc->t1 = %f\n",
+		sc->i, sc->j, sc->k2, sc->discr, sc->k1, sc->t1);
+	}
 	sc->t1 = (-sc->k2 + sqrtf(sc->discr)) / (2 * sc->k1);
+	if (sc->i == 0 && sc->j == 0)
+	{
+		printf("sc->i = %d, sc->j = %d, sc->k2 = %f, sc->discr = %f, sc->k1 = %f, sc->t1 = %f\n",
+		sc->i, sc->j, sc->k2, sc->discr, sc->k1, sc->t1);
+	}
 	sc->t2 = (-sc->k2 - sqrtf(sc->discr)) / (2 * sc->k1);
-
-	// cut the cylinder
-
-	sc->figure[sc->m].p1.x = sc->cam.o.x + sc->t1 * sc->dd.x;
-	sc->figure[sc->m].p1.y = sc->cam.o.y + sc->t1 * sc->dd.y;
-	sc->figure[sc->m].p1.z = sc->cam.o.z + sc->t1 * sc->dd.z;
-
-	ft_vec_sub(sc->figure[sc->m].p1, sc->figure[sc->m].o, &sc->figure[sc->m].pc);
-	sc->figure[sc->m].m_figure_length = ft_vec_dot(sc->figure[sc->m].pc,
-	sc->figure[sc->m].n);
-
-	if (sc->figure[sc->m].m_figure_length <= 0 || sc->figure[sc->m].m_figure_length >= (float)sc->figure[sc->m].height)
-	{
-		sc->t1 = -1;
-	}
-	sc->figure[sc->m].p2.x = sc->cam.o.x + sc->t2 * sc->dd.x;
-	sc->figure[sc->m].p2.y = sc->cam.o.y + sc->t2 * sc->dd.y;
-	sc->figure[sc->m].p2.z = sc->cam.o.z + sc->t2 * sc->dd.z;
-
-	ft_vec_sub(sc->figure[sc->m].p2, sc->figure[sc->m].o, &sc->figure[sc->m].pc);
-	sc->figure[sc->m].m_figure_length = ft_vec_dot(sc->figure[sc->m].pc,
-	sc->figure[sc->m].n);
-
-	if (sc->figure[sc->m].m_figure_length <= 0 || sc->figure[sc->m].m_figure_length >= (float)sc->figure[sc->m].height)
-	{
-		sc->t2 = -1;
-	}
-
-	// buff = (sc->dd.x * sc->figure[sc->m].n.x + sc->dd.y * sc->figure[sc->m].n.y
-	// + sc->dd.z * sc->figure[sc->m].n.z);
-	// if (buff != 0)
-	// 	sc->t1 = -(sc->oc.x * sc->figure[sc->m].n.x + sc->oc.y *
-	// 	sc->figure[sc->m].n.y + sc->oc.z * sc->figure[sc->m].n.z) / buff;
-	// else
-	// 	sc->t1 = 0;
-	// sc->t2 = sc->t1;
-
+	// printf("sc->i = %d, sc->j = %d, sc->k2 = %f, sc->discr = %f, sc->k1 = %f, sc->t1 = %f, sc->t2 = %f\n",
+	// 	sc->i, sc->j, sc->k2, sc->discr, sc->k1, sc->t1, sc->t2);
 }
 
 void	intersect_cone(t_scene *sc)
@@ -112,6 +78,10 @@ void	intersect_cone(t_scene *sc)
 
 void	traceray(t_scene *sc)
 {
+	// if (sc->i == 0 && sc->j == 0)
+	// {
+	// 	printf("sc->n.length = %f\n", sc->n.length);
+	// }
 	sc->m = 0;
 	sc->closfig = -1;
 	sc->clost = sc->eov;
@@ -119,8 +89,11 @@ void	traceray(t_scene *sc)
 	{
 		ft_vec_sub(sc->cam.o, sc->figure[sc->m].o, &sc->oc);
 		intersection(sc);
-		sc->m++;
 	}
+	ft_vec_sub(sc->cam.o, sc->figure[sc->closfig].o, &sc->oc);
+	sc->p.x = sc->cam.o.x + sc->clost * sc->dd.x;
+	sc->p.y = sc->cam.o.y + sc->clost * sc->dd.y;
+	sc->p.z = sc->cam.o.z + sc->clost * sc->dd.z;
 	if (sc->figure[sc->closfig].type == 0)
 		normal_sph(sc);
 	if (sc->figure[sc->closfig].type == 3)

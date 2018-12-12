@@ -132,7 +132,5 @@ void	errors(int n)
 		ft_putstr("Light error (type 4)\n");
 	else if (n == 11)
 		ft_putstr("Camera type (type 5)\n");
-	else if (n == 12)
-		ft_putstr("Height error\n");
 	exit(0);
 }

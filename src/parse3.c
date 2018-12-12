@@ -106,18 +106,6 @@ void	read_radius(t_scene *sc)
 	ft_strdel(&sc->pa.f_buff);
 }
 
-void	read_height(t_scene *sc)
-{
-	if ((sc->pa.index = ft_indexof(sc->pa.buff, "height=", 0, 0)) == -1)
-		errors(12);
-	sc->pa.index2 = ft_strnfind(sc->pa.buff, ';', sc->pa.index);
-	sc->pa.f_buff = ft_strnsub(sc->pa.buff, sc->pa.index + 7, sc->pa.index2);
-	if (ft_isnumber(sc->pa.f_buff) == 0)
-		errors(5);
-	sc->figure[sc->i].height = ft_atoi(sc->pa.f_buff);
-	ft_strdel(&sc->pa.f_buff);
-}
-
 void	read_angle(t_scene *sc)
 {
 	if ((sc->pa.index = ft_indexof(sc->pa.buff, "angle=", 0, 0)) == -1)

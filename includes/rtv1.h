@@ -21,8 +21,6 @@
 # include <stdlib.h>
 # include <SDL2/SDL.h>
 
-# include <stdio.h>
-
 typedef struct		s_sdl
 {
 	SDL_Window		*win;
@@ -56,19 +54,11 @@ typedef struct		s_figure
 {
 	int				type;
 	int				radius;
-	int				height;    // this is mmax
 	float			angl;
 	float			k;
-	float			m_figure_length;
 	t_vector		o;
 	t_vector		n;
 	t_vector		a;
-	t_vector		oc;
-	t_vector		pc;
-	t_vector		p1;
-	t_vector		p2;
-	float			close_wall;
-	float			far_wall;
 	t_color			color;
 }					t_figure;
 
@@ -95,7 +85,6 @@ typedef struct		s_scene
 	int				i;
 	int				j;
 	int				m;
-	int				k;
 	t_camera		cam;
 	t_vector		dd;
 	t_vector		ray;
@@ -142,7 +131,6 @@ void				read_plane(t_scene *sc);
 void				read_light(t_scene *sc);
 void				read_camera(t_scene *sc);
 void				read_radius(t_scene *sc);
-void				read_height(t_scene *sc);
 void				read_angle(t_scene *sc);
 void				read_o_vector(t_scene *sc);
 void				read_n_vector(t_scene *sc);
@@ -191,7 +179,6 @@ void				normal_plane(t_scene *sc);
 void				normal_cone(t_scene *sc);
 void				normal_cyl(t_scene *sc);
 void				render(t_scene *sc, t_sdl *s);
-// void				intersection_light(t_scene *sc);
 
 /*
 **initialisation and error management
