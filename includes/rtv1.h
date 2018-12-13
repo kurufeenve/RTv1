@@ -54,11 +54,16 @@ typedef struct		s_figure
 {
 	int				type;
 	int				radius;
+	int				length;
 	float			angl;
 	float			k;
+	float			m_figure_length;
 	t_vector		o;
 	t_vector		n;
 	t_vector		a;
+	t_vector		p1;
+	t_vector		p2;
+	t_vector		pc;
 	t_color			color;
 }					t_figure;
 
@@ -131,6 +136,7 @@ void				read_plane(t_scene *sc);
 void				read_light(t_scene *sc);
 void				read_camera(t_scene *sc);
 void				read_radius(t_scene *sc);
+void				read_length(t_scene *sc);
 void				read_angle(t_scene *sc);
 void				read_o_vector(t_scene *sc);
 void				read_n_vector(t_scene *sc);
