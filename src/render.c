@@ -35,7 +35,7 @@ void	render(t_scene *sc, t_sdl *s)
 
 void	canvtoview(t_scene *sc)
 {
-	sc->dd.x = (float)sc->i * (float)sc->vw / (float)sc->cw;
+	sc->dd.x = (float)sc->i * (float)sc->vw / (float)sc->cw * (float)sc->cw / (float)sc->ch; // this stuff in the end for normalization of figures if screen ration is not 1:1
 	sc->dd.y = (float)sc->j * (float)sc->vh / (float)sc->ch;
 	sc->dd.z = (float)sc->d;
 	camera_rotation(&sc->dd, sc->cam.ro);

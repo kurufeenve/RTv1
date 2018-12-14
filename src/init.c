@@ -20,7 +20,7 @@ void	struct_init(t_scene *sc)
 	sc->cam.ro.x = 0;
 	sc->cam.ro.y = 0;
 	sc->cam.ro.z = 0;
-	sc->cw = 1000;
+	sc->cw = 2000;
 	sc->ch = 1000;
 	sc->vw = 1;
 	sc->vh = 1;
